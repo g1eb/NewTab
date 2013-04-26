@@ -1,0 +1,28 @@
+{
+    "name": "New Tab++",
+    "description": "A better way to choose your new tab.",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "chrome_url_overrides": {
+      "newtab": "newtab.html"
+    },
+    "permissions": ["storage", "bookmarks", "chrome://favicon/"],
+    "icons": {
+        "256": "images/nt_icon_256.png",
+        "128": "images/nt_icon_128.png",
+        "22": "images/nt_icon_22.png",
+        "16": "images/nt_icon_16.png"
+    },
+    "default_icon": "images/nt_icon_256.png",
+    "web_accessible_resources": [
+        "css/styles.css",
+        "js/query-1.9.0.min.js",
+        "js/tab_script.js",
+        "images/edit_icon.png",
+        "images/plus_icon.png",
+        "images/nt_icon_256.png",
+        "images/nt_icon_128.png",
+        "images/nt_icon_22.png",
+        "images/nt_icon_16.png"
+    ]
+ }

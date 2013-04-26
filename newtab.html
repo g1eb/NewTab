@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>New Tab</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+    <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="js/tab_script.js"></script>
+</head>
+<body>
+    <div id="content">
+    </div>
+    <div id="footer">
+        <span class="fleft" data-reveal-id="edit_popup">NewTab++</span>
+        <span class="fright">
+            <input type="text" id="linkNum" class="link_options" name="linkNum" value="" />
+            <img id="edit" src="images/edit_icon.png"></img>
+        </span>
+    </div>
+    <div id="link_edit">
+        <h1 class="link_title"></h1>
+        <label for="link_url">Url</label>
+        <input id="link_url" name="link_url" type="text" /><br/>
+        <label for="link_image">Image</label>
+        <input type="file" id="link_image" name="link_image" accept="image/*"><br/>
+        <input type="submit" value="Save" />
+    </div>
+</body>
+</html>
