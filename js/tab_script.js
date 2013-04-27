@@ -70,6 +70,15 @@ $(function () {
     // set click listener on the close button of the edit popup
     $('#close_link_edit').click(function() {
         $('#link_edit').hide();
+        window.editMode = false;
+    });
+
+    // set click listener to close the link edit popup
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            $('#link_edit').hide();
+            window.editMode = false;
+        }
     });
 
     // Initialize background color changing process
