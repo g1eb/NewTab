@@ -140,6 +140,17 @@ a:visited:hover {
     background-color: rgba(0, 255, 0, 0.5);
 }
 
+#delete_link {
+    top: 11px;
+    right: 45px;
+    position: absolute;
+    opacity: 0.7;
+}
+
+#delete_link:hover {
+    opacity: 1;
+}
+
 #close_link_edit {
     top: 0px;
     right: 10px;
