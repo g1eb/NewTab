@@ -17,10 +17,12 @@
     </div> <!-- end of footer -->
 
     <div id="link_edit">
-        <h1 id="link_title"></h1>
+        <h1></h1>
         <form id="link_edit_form" action="">
+            <label for="link_title">Title</label>
+            <input type="text" id="link_title" name="link_title" />
             <label for="link_url">Url</label>
-            <input id="link_url" name="link_url" type="text" />
+            <input type="text" id="link_url" name="link_url" />
             <label for="link_image">Image</label>
             <input type="file" id="link_image" name="link_image" accept="image/*">
             <input type="hidden" id="link_id" name="link_id" value="" />

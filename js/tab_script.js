@@ -16,20 +16,21 @@ $(function () { window.linkWidth = 100; // pixels
     });
 
     // retrieve links from chrome storage
-    chrome.storage.sync.get('links', function(val) {
+    chrome.storage.local.get('links', function(val) {
         window.links = val['links'] || [];
         chrome.bookmarks.getTree(setBookmarks);
     });
 
     // set links in chrome storage
-    chrome.storage.sync.set({'links': window.links},function() {});
+    chrome.storage.local.set({'links': window.links},function() {});
 
     // setup the the num links field
     $('#linkNum').focusout(function() {
         var linkNum = $(this).val();
         if(linkNum <= 1000){
-            chrome.storage.sync.set({'linkNum': linkNum},function() {});
-            window.location.reload();
+            chrome.storage.sync.set({'linkNum': linkNum}, function() {
+                window.location.reload();
+            });
         }
     });
 
@@ -39,15 +40,35 @@ $(function () { window.linkWidth = 100; // pixels
     });
 
     // set submit listener for the link edit form
-    $('#link_edit_form').submit(function() {
-        console.log("submit handler called")
+    $('#link_edit_form').submit(function(e) {
+        window.links[$('#link_id').val()] = {
+            id: $('#link_id').val(),
+            title: $('#link_title').val() || "",
+            url: $('#link_url').val() || "#",
+            image: window.imageData
+        }
+        var link_id = 'link_image_' + $('#link_id').val();
+        $('#content').html("");
+        chrome.storage.local.set({'links': window.links}, function() {});
     });
+
+    // set a change event listener on the image file field
+    $('#link_image').change(function(e){
+        file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            window.imageData = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
 
     // set click listener on the close button of the edit popup
     $('#close_link_edit').click(function() {
         $('#link_edit').hide();
     });
 
+    // Initialize background color changing process
     window.setInterval(changeBackground, 60000); // change color every minute
 });
 
@@ -116,19 +137,26 @@ function setLinks() {
         var link = window.links[$(this).attr('id')];
         if(link === undefined){
             // popup menu to select website + logo
-            $('#link_title').text("Add a new link");
+            $('#link_edit h1').text("Add a new link");
             $('#link_id').val($(this).attr('id'));
             $('#link_edit').show();
+            $('#link_title').focus();
         } else {
             if(window.editMode == true){
                 // popup menu to select a website + logo (website prefilled)
+                $('#link_edit h1').text(link.title);
                 $('#link_title').text(link.title);
                 $('#link_url').val(link.url);
                 $('#link_id').val($(this).attr('id'));
                 $('#link_edit').show();
+                $('#link_title').focus();
             } else {
                 // actually redirecting the user to the requested page
-                window.location = window.links[$(this).attr('id')].url;
+                var url = window.links[$(this).attr('id')].url;
+                if(url.indexOf("http://") != 0){
+                    url = "http://" + url;
+                }
+                window.location = url;
             }
         }
     });
@@ -138,7 +166,6 @@ function setLinks() {
 function changeBackground() {
     // animate background color
     window.color = getRandomColor();
-
     $('body').css('background-color', window.color );
 };
 

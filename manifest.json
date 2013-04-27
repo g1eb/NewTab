@@ -6,7 +6,10 @@
     "chrome_url_overrides": {
       "newtab": "newtab.html"
     },
-    "permissions": ["storage", "bookmarks", "chrome://favicon/"],
+    "permissions": ["storage",
+                    "bookmarks",
+                    "http://*/",
+                    "chrome://favicon/"],
     "icons": {
         "256": "images/nt_icon_256.png",
         "128": "images/nt_icon_128.png",

@@ -86,7 +86,7 @@ a:visited:hover {
     top: 30%;
     left: 33%;
     width: 30%;
-    height: 30%;
+    height: 40%;
     padding: 15px;
     position: absolute;
     z-index:2;
@@ -104,6 +104,11 @@ a:visited:hover {
 
 #link_edit h1 {
     margin-bottom: 15px;
+}
+
+#link_title {
+    width: 75%;
+    margin: 0 15px 15px 0;
 }
 
 #link_url {
