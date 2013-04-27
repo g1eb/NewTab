@@ -6,22 +6,28 @@
     <script type="text/javascript" src="js/tab_script.js"></script>
 </head>
 <body>
-    <div id="content">
-    </div>
+    <div id="content"></div> <!-- end of content -->
+
     <div id="footer">
         <span class="fleft" data-reveal-id="edit_popup">NewTab++</span>
         <span class="fright">
             <input type="text" id="linkNum" class="link_options" name="linkNum" value="" />
             <img id="edit" src="images/edit_icon.png"></img>
         </span>
-    </div>
+    </div> <!-- end of footer -->
+
     <div id="link_edit">
-        <h1 class="link_title"></h1>
-        <label for="link_url">Url</label>
-        <input id="link_url" name="link_url" type="text" /><br/>
-        <label for="link_image">Image</label>
-        <input type="file" id="link_image" name="link_image" accept="image/*"><br/>
-        <input type="submit" value="Save" />
-    </div>
+        <h1 id="link_title"></h1>
+        <form id="link_edit_form" action="">
+            <label for="link_url">Url</label>
+            <input id="link_url" name="link_url" type="text" />
+            <label for="link_image">Image</label>
+            <input type="file" id="link_image" name="link_image" accept="image/*">
+            <input type="hidden" id="link_id" name="link_id" value="" />
+            <input type="submit" id="link_edit_submit" value="Save" />
+        </form>
+        <a id="close_link_edit">&#215;</a>
+    </div> <!-- end of link_edit -->
+
 </body>
 </html>

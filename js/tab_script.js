@@ -1,5 +1,4 @@
-$(function () {
-    window.linkWidth = 100; // pixels
+$(function () { window.linkWidth = 100; // pixels
     window.linkHeight = 100; // pixels
     window.linkNum = 100; // number of links
     window.editMode = false; // editing mode
@@ -37,6 +36,16 @@ $(function () {
     // set click listener for the edit button
     $('#edit').click(function() {
         window.editMode = true;
+    });
+
+    // set submit listener for the link edit form
+    $('#link_edit_form').submit(function() {
+        console.log("submit handler called")
+    });
+
+    // set click listener on the close button of the edit popup
+    $('#close_link_edit').click(function() {
+        $('#link_edit').hide();
     });
 
     window.setInterval(changeBackground, 60000); // change color every minute
@@ -104,12 +113,19 @@ function setLinks() {
     $('.link_title').css('margin-top', parseInt(window.linkHeight/2.2));
 
     $('.link').click(function(){
-        if(window.links[$(this).attr('id')] === undefined){
+        var link = window.links[$(this).attr('id')];
+        if(link === undefined){
             // popup menu to select website + logo
-            console.log("No url set at this location");
+            $('#link_title').text("Add a new link");
+            $('#link_id').val($(this).attr('id'));
+            $('#link_edit').show();
         } else {
             if(window.editMode == true){
                 // popup menu to select a website + logo (website prefilled)
+                $('#link_title').text(link.title);
+                $('#link_url').val(link.url);
+                $('#link_id').val($(this).attr('id'));
+                $('#link_edit').show();
             } else {
                 // actually redirecting the user to the requested page
                 window.location = window.links[$(this).attr('id')].url;

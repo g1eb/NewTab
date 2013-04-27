@@ -83,13 +83,69 @@ a:visited:hover {
 /* Link Edit Popup */
 
 #link_edit {
-    top:45%;
-    left:45%;
+    top: 30%;
+    left: 33%;
     width: 30%;
     height: 30%;
+    padding: 15px;
     position: absolute;
+    z-index:2;
     display: none;
-    visibility: hidden;
+    background-color: #ffffff;
+	opacity: 0.75;
+    -webkit-box-shadow: 0 0 5px 5px #cccccc;
+	-webkit-transition-duration: 0.5s;
+}
+
+#link_edit label {
+    width: 10%;
+    display: inline-block;
+}
+
+#link_edit h1 {
+    margin-bottom: 15px;
+}
+
+#link_url {
+    width: 75%;
+    margin: 0 15px 15px 0;
+}
+
+#link_image {
+    width: 75%;
+    margin: 0 15px 20px 0;
+}
+
+#link_edit_submit {
+    width: 90%;
+    height: 40%;
+    left: 5%;
+    position: relative;
+    color: #333333;
+    font-size: 2em;
+    border: 1px solid #555555;
+    background: transparent;
+	-webkit-transition-duration: 0.5s;
+}
+
+#link_edit_submit:hover {
+    cursor: pointer;
+    color: #000000;
+    border: 1px solid #000000;
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+#close_link_edit {
+    top: 0px;
+    right: 10px;
+    color: #555555;
+    font-size: 3em;
+    position: absolute;
+}
+
+#close_link_edit:hover {
+    color: #000000;
+    text-decoration: none;
 }
 
 /* Footer */
@@ -128,4 +184,8 @@ a:visited:hover {
 #footer .link_options:focus {
     color: #000000;
     border-color: #333333;
+}
+
+#footer #edit:hover {
+    cursor: pointer;
 }
