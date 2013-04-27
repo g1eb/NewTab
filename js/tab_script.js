@@ -1,4 +1,5 @@
-$(function () { window.linkWidth = 100; // pixels
+$(function () {
+    window.linkWidth = 100; // pixels
     window.linkHeight = 100; // pixels
     window.linkNum = 100; // number of links
     window.editMode = false; // editing mode
@@ -17,12 +18,16 @@ $(function () { window.linkWidth = 100; // pixels
 
     // retrieve links from chrome storage
     chrome.storage.local.get('links', function(val) {
-        window.links = val['links'] || [];
-        chrome.bookmarks.getTree(setBookmarks);
+        if('links' in val){
+            window.links = val['links'] || [];
+            setLinks();
+        } else {
+            chrome.bookmarks.getTree(setBookmarks);
+        }
     });
 
     // set links in chrome storage
-    chrome.storage.local.set({'links': window.links},function() {});
+    //chrome.storage.local.set({'links': window.links},function() {});
 
     // setup the the num links field
     $('#linkNum').focusout(function() {
@@ -40,16 +45,15 @@ $(function () { window.linkWidth = 100; // pixels
     });
 
     // set submit listener for the link edit form
-    $('#link_edit_form').submit(function(e) {
+    $('#link_edit_submit').click(function() {
         window.links[$('#link_id').val()] = {
             id: $('#link_id').val(),
             title: $('#link_title').val() || "",
             url: $('#link_url').val() || "#",
             image: window.imageData
         }
-        var link_id = 'link_image_' + $('#link_id').val();
-        $('#content').html("");
-        chrome.storage.local.set({'links': window.links}, function() {});
+        chrome.storage.local.set({'links': window.links},function() {});
+        window.location.reload();
     });
 
     // set a change event listener on the image file field
@@ -74,13 +78,16 @@ $(function () { window.linkWidth = 100; // pixels
 
 
 function setBookmarks(bookmarks) {
+    window.links = window.links || [];
     // looks for user-defined bookmarks and uses them as links
     if(bookmarks[0].children.length != 0){
         for(var i = 0; i < bookmarks[0].children.length; i++){
             if(bookmarks[0].children[i].children.length != 0){
                 for(var j = 0; j < bookmarks[0].children[i].children.length; j++){
                     var link = bookmarks[0].children[i].children[j];
-                    window.links.push(link);
+                    if(window.links.indexOf(link) -1){
+                        window.links.push(link);
+                    }
                 }
             }
         }
@@ -108,6 +115,7 @@ function setLinks() {
     for(var counter = 0; counter < window.linkNum; counter++){
         var link = window.links[counter] || undefined;
         if(link == undefined){
+            window.links[counter] = undefined;
             $('#content').append('<div id="'+counter+'" class="link" title="Add new link" data-reveal-id="edit_popup"><div class="cover"></div><img src="images/plus_icon.png" alt="add link image" /></div>');
         } else if(link['image'] == undefined){
             var url = 'chrome://favicon/'+link.url;
@@ -145,7 +153,7 @@ function setLinks() {
             if(window.editMode == true){
                 // popup menu to select a website + logo (website prefilled)
                 $('#link_edit h1').text(link.title);
-                $('#link_title').text(link.title);
+                $('#link_title').val(link.title);
                 $('#link_url').val(link.url);
                 $('#link_id').val($(this).attr('id'));
                 $('#link_edit').show();
