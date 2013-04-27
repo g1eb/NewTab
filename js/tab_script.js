@@ -66,6 +66,12 @@ $(function () {
         reader.readAsDataURL(file);
     });
 
+    // set click listener on the link delete button
+    $('#delete_link').click(function() {
+        window.links[$('#link_id').val()] = undefined;
+        chrome.storage.local.set({'links': window.links},function() {});
+        window.location.reload();
+    });
 
     // set click listener on the close button of the edit popup
     $('#close_link_edit').click(function() {
