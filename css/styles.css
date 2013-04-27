@@ -42,6 +42,8 @@ a:visited:hover {
     overflow: hidden;
 	text-align: center;
 	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 	-webkit-transform:scale(1.0);
 	-webkit-transition-duration: 0.5s;
 }
