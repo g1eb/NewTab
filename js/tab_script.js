@@ -49,7 +49,7 @@ $(function () {
         window.links[$('#link_id').val()] = {
             id: $('#link_id').val(),
             title: $('#link_title').val() || "",
-            url: $('#link_url').val() || "#",
+            url: $('#link_url').val() || "",
             image: window.imageData
         }
         chrome.storage.local.set({'links': window.links},function() {});
@@ -176,7 +176,7 @@ function setLinks() {
             } else {
                 // actually redirecting the user to the requested page
                 var url = window.links[$(this).attr('id')].url;
-                if(url.indexOf("http://") != 0){
+                if(!isValidURL(url)){
                     url = "http://" + url;
                 }
                 window.location = url;
@@ -198,4 +198,10 @@ function getRandomColor() {
     var result = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
     chrome.storage.sync.set({'color': result});
     return result;
+};
+
+
+function isValidURL(url){
+    // generic url validator based on regex
+    return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
 };
