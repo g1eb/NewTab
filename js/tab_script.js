@@ -1,8 +1,15 @@
+/* NewTab++ script
+ * A better way to choose a new tab.
+ *
+ * Script written in april 2013
+ */
+
 $(function () {
     window.linkWidth = 100; // pixels
     window.linkHeight = 100; // pixels
     window.linkNum = 100; // number of links
     window.editMode = false; // editing mode
+    window.intervalId = 0; // id of the interval
 
     // get saved number of links or use 100 as default
     chrome.storage.sync.get('linkNum',  function(val){
@@ -12,7 +19,7 @@ $(function () {
 
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
-        window.color = val['color'] || getRandomColor();
+        window.color = val['color'];
         $('body').css('background-color', window.color);
     });
 
@@ -26,16 +33,27 @@ $(function () {
         }
     });
 
-    // set links in chrome storage
-    //chrome.storage.local.set({'links': window.links},function() {});
+    // setup the listener for the num links field
+    $('#linkNum').keyup(function(e) {
+        if(e.keyCode == 13) {
+            var linkNum = $(this).val();
+            if(linkNum >= 20 && linkNum <= 1000){
+                chrome.storage.sync.set({'linkNum': linkNum}, function() {
+                    window.location.reload();
+                });
+            }
+        }
+    });
 
-    // setup the the num links field
-    $('#linkNum').focusout(function() {
-        var linkNum = $(this).val();
-        if(linkNum <= 1000){
-            chrome.storage.sync.set({'linkNum': linkNum}, function() {
-                window.location.reload();
-            });
+    // set click listener for the brush button
+    $('#brush').click(function() {
+        if(window.color != '#ffffff'){
+            window.color = '#ffffff';
+            $('body').css('background-color', window.color);
+            stopColorizer();
+        }else{
+            changeBackground();
+            runColorizer();
         }
     });
 
@@ -81,14 +99,11 @@ $(function () {
 
     // set click listener to close the link edit popup
     $(document).keyup(function(e) {
-        if (e.keyCode == 27) {
+        if(e.keyCode == 27) {
             $('#link_edit').hide();
             window.editMode = false;
         }
     });
-
-    // Initialize background color changing process
-    window.setInterval(changeBackground, 60000); // change color every minute
 });
 
 
@@ -111,21 +126,20 @@ function setBookmarks(bookmarks) {
 };
 
 
-function getPossibleLinks() {
-    // returns the amount of possible links given window  width and height and window parameters
-    return parseInt(window.innerWidth / window.linkWidth) * parseInt(window.innerHeight / window.linkHeight);
+function getOptimalLinkParameters() {
+    // sets the most optimal link number, width and height
+    window.linkWidth = window.linkHeight = Math.sqrt((window.innerWidth * (window.innerHeight - 22)) / window.linkNum);
+
+    while(window.innerWidth % window.linkWidth > 0.001){
+        window.linkWidth += 0.00001;
+        window.linkHeight += 0.00001;
+    }
 }
 
 
 function setLinks() {
     // fills up the screen with links and insters that into the content div
-    var fitLinks = getPossibleLinks();
-
-    while(fitLinks < window.linkNum){
-        window.linkWidth = window.linkWidth - 1;
-        window.linkHeight = window.linkHeight - 1;
-        fitLinks = getPossibleLinks();
-    }
+    getOptimalLinkParameters();
 
     for(var counter = 0; counter < window.linkNum; counter++){
         var link = window.links[counter] || undefined;
@@ -186,13 +200,6 @@ function setLinks() {
 };
 
 
-function changeBackground() {
-    // animate background color
-    window.color = getRandomColor();
-    $('body').css('background-color', window.color );
-};
-
-
 function getRandomColor() {
     // returns a random color
     var result = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
@@ -201,7 +208,30 @@ function getRandomColor() {
 };
 
 
+function changeBackground() {
+    // animate background color
+    window.color = getRandomColor();
+    $('body').css('background-color', window.color );
+    return true
+};
+
+
+function runColorizer() {
+    // Initialize background color changing process
+    window.intervalId = window.setInterval(changeBackground, 60000); // change color every minute
+    return true;
+};
+
+
+function stopColorizer() {
+    // Stops the background color changing process
+    clearInterval(window.intervalId);
+    chrome.storage.sync.set({'color': window.color});
+    return true;
+};
+
+
 function isValidURL(url){
     // generic url validator based on regex
-    return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
+    return /(file|ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
 };

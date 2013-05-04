@@ -204,6 +204,12 @@ a:visited:hover {
     border-color: #333333;
 }
 
+#footer #brush,
+#footer #edit {
+    margin: 0 5px;
+}
+
+#footer #brush:hover,
 #footer #edit:hover {
     cursor: pointer;
 }
