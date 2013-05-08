@@ -105,6 +105,9 @@ a:visited:hover {
 }
 
 #link_edit h1 {
+    width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
     margin-bottom: 15px;
 }
 
