@@ -1,7 +1,8 @@
 /* NewTab++ script
  * A better way to choose a new tab.
  *
- * Script written in april 2013
+ * Idea based on LinkTiles project
+ * Written in april 2013
  */
 
 $(function () {
