@@ -21,7 +21,12 @@ $(function () {
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
         window.color = val['color'];
-        $('body').css('background-color', window.color);
+        if(window.color != '#ffffff'){
+            $('body').css('background-color', window.color);
+            runColorizer();
+        } else {
+            $('body').css('background-color', window.color);
+        }
     });
 
     // retrieve links from chrome storage
@@ -38,7 +43,7 @@ $(function () {
     $('#linkNum').keyup(function(e) {
         if(e.keyCode == 13) {
             var linkNum = $(this).val();
-            if(linkNum >= 20 && linkNum <= 1000){
+            if(linkNum <= 1000){
                 chrome.storage.sync.set({'linkNum': linkNum}, function() {
                     window.location.reload();
                 });
@@ -129,11 +134,11 @@ function setBookmarks(bookmarks) {
 
 function getOptimalLinkParameters() {
     // sets the most optimal link number, width and height
-    window.linkWidth = window.linkHeight = Math.sqrt((window.innerWidth * (window.innerHeight - 22)) / window.linkNum);
+    window.linkWidth = window.linkHeight = Math.ceil(Math.sqrt((window.innerWidth * (window.innerHeight - 22)) / window.linkNum));
 
-    while(window.innerWidth % window.linkWidth > 0.001){
-        window.linkWidth += 0.00001;
-        window.linkHeight += 0.00001;
+    while(window.innerWidth % window.linkWidth > 1){
+        window.linkWidth += 1;
+        window.linkHeight += 1;
     }
 }
 
