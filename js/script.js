@@ -1,8 +1,8 @@
 /* NewTab++ script
- * A better way to choose a new tab.
+ * Minimalistic gateway to the interwebs.
  *
  * Idea based on LinkTiles project
- * Written in april 2013
+ * Written in april 2013 | Updated 2015
  */
 
 $(function () {
