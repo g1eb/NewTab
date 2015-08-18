@@ -21,12 +21,12 @@ $(function () {
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
         window.color = val['color'];
-        if(window.color != '#ffffff'){
-            $('body').css('background-color', window.color);
-            runColorizer();
-        } else {
-            $('body').css('background-color', window.color);
-        }
+        $('body').css('background-color', window.color);
+        runColorizer();
+        window.setInterval(function() {
+            window.color = getRandomColor();
+            $('body').css('background-color', window.color );
+        }, 60000); // change color every minute
     });
 
     // retrieve links from chrome storage
