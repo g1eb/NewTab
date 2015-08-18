@@ -34,8 +34,6 @@ $(function () {
         if('links' in val){
             window.links = val['links'] || [];
             setLinks();
-        } else {
-            chrome.bookmarks.getTree(setBookmarks);
         }
     });
 
@@ -111,25 +109,6 @@ $(function () {
         }
     });
 });
-
-
-function setBookmarks(bookmarks) {
-    window.links = window.links || [];
-    // looks for user-defined bookmarks and uses them as links
-    if(bookmarks[0].children.length != 0){
-        for(var i = 0; i < bookmarks[0].children.length; i++){
-            if(bookmarks[0].children[i].children.length != 0){
-                for(var j = 0; j < bookmarks[0].children[i].children.length; j++){
-                    var link = bookmarks[0].children[i].children[j];
-                    if(window.links.indexOf(link) -1){
-                        window.links.push(link);
-                    }
-                }
-            }
-        }
-    }
-    setLinks();
-};
 
 
 function getOptimalLinkParameters() {
