@@ -5,12 +5,21 @@
  * Written in april 2013 | Updated 2015
  */
 
-var init = function () {
+var tab = {
+
+  // Link dimensions in px
+  linkWidth: 100,
+  linkHeight: 100,
+
+  // Edit mode
+  editMode: false,
+
+  // Initialization function
+  init: function () {
     window.linkWidth = 100; // pixels
     window.linkHeight = 100; // pixels
     window.linkNum = 100; // number of links
     window.editMode = false; // editing mode
-    window.intervalId = 0; // id of the interval
 
     // get saved number of links or use 100 as default
     chrome.storage.sync.get('linkNum',  function(val){
@@ -83,6 +92,8 @@ var init = function () {
             window.editMode = false;
         }
     });
+
+  }
 };
 
 
@@ -175,4 +186,4 @@ function isValidURL(url){
 };
 
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", tab.init);
