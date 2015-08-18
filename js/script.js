@@ -36,30 +36,6 @@ $(function () {
         }
     });
 
-    // setup the listener for the num links field
-    $('#linkNum').keyup(function(e) {
-        if(e.keyCode == 13) {
-            var linkNum = $(this).val();
-            if(linkNum <= 1000){
-                chrome.storage.sync.set({'linkNum': linkNum}, function() {
-                    window.location.reload();
-                });
-            }
-        }
-    });
-
-    // set click listener for the brush button
-    $('#brush').click(function() {
-        if(window.color != '#ffffff'){
-            window.color = '#ffffff';
-            $('body').css('background-color', window.color);
-            stopColorizer();
-        }else{
-            changeBackground();
-            runColorizer();
-        }
-    });
-
     // set click listener for the edit button
     $('#edit').click(function() {
         window.editMode = true;
