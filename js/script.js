@@ -32,7 +32,7 @@ var tab = {
         window.color = val['color'];
         $('body').css('background-color', window.color);
         window.setInterval(function() {
-            window.color = getRandomColor();
+            window.color = tab.getRandomColor();
             chrome.storage.sync.set({'color': window.color});
             $('body').css('background-color', window.color );
         }, 60000); // change color every minute
@@ -40,10 +40,8 @@ var tab = {
 
     // retrieve links from chrome storage
     chrome.storage.local.get('links', function(val) {
-        if('links' in val){
-            window.links = val['links'] || [];
-            setLinks();
-        }
+      window.links = val['links'] || [];
+      tab.setLinks();
     });
 
     // set click listener for the edit button
@@ -94,25 +92,27 @@ var tab = {
         }
     });
 
-  }
-};
+  },
 
 
-
-function getOptimalLinkParameters() {
-    // sets the most optimal link number, width and height
+  /**
+   * Get link dimensions based on screen size
+   */
+  getOptimalLinkParameters: function() {
     window.linkWidth = window.linkHeight = Math.ceil(Math.sqrt((window.innerWidth * (window.innerHeight - 22)) / window.linkNum));
 
     while(window.innerWidth % window.linkWidth > 1){
         window.linkWidth += 1;
         window.linkHeight += 1;
     }
-}
+  },
 
 
-function setLinks() {
-    // fills up the screen with links and insters that into the content div
-    getOptimalLinkParameters();
+  /**
+   * Fills up the screen with links
+   */
+  setLinks: function() {
+    tab.getOptimalLinkParameters();
 
     for(var counter = 0; counter < window.linkNum; counter++){
         var link = window.links[counter] || undefined;
@@ -163,25 +163,32 @@ function setLinks() {
             } else {
                 // actually redirecting the user to the requested page
                 var url = window.links[$(this).attr('id')].url;
-                if(!isValidURL(url)){
+                if(!tab.isValidURL(url)){
                     url = "http://" + url;
                 }
                 window.location = url;
             }
         }
     });
-};
+  },
 
 
-function getRandomColor() {
+  /**
+   * Returns a random color
+   */
+  getRandomColor: function() {
     return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-};
+  },
 
 
-function isValidURL(url){
-    // generic url validator based on regex
+  /**
+   * Validate url
+   * @param url String
+   */
+  isValidURL: function(url) {
     return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
-};
+  }
 
+};
 
 document.addEventListener("DOMContentLoaded", tab.init);
