@@ -1,22 +1,22 @@
 {
-    "name": "New Tab++",
-    "description": "A better way to choose a new tab.",
-    "version": "0.0.1",
+    "name": "NewTab++",
+    "short_name": "nt++",
+    "description": "Minimalistic gateway to the interwebs.",
+    "version": "0.0.2",
     "manifest_version": 2,
     "chrome_url_overrides": {
-      "newtab": "newtab.html"
+      "newtab": "index.html"
     },
     "permissions": ["storage",
-                    "bookmarks",
                     "http://*/",
                     "chrome://favicon/"],
     "icons": {
-        "256": "images/nt_icon_256.png",
-        "128": "images/nt_icon_128.png",
-        "22": "images/nt_icon_22.png",
-        "16": "images/nt_icon_16.png"
+        "256": "images/icon_256.png",
+        "128": "images/icon_128.png",
+        "22": "images/icon_22.png",
+        "16": "images/icon_16.png"
     },
-    "default_icon": "images/nt_icon_256.png",
+    "default_icon": "images/icon.png",
     "web_accessible_resources": [
         "css/styles.css",
         "js/query-1.9.0.min.js",
@@ -25,9 +25,10 @@
         "images/brush_icon.png",
         "images/delete_icon.png",
         "images/plus_icon.png",
-        "images/nt_icon_256.png",
-        "images/nt_icon_128.png",
-        "images/nt_icon_22.png",
-        "images/nt_icon_16.png"
+        "images/icon_256.png",
+        "images/icon_128.png",
+        "images/icon_22.png",
+        "images/icon_16.png",
+        "images/icon.png"
     ]
  }
