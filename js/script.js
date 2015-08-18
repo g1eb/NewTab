@@ -22,7 +22,6 @@ $(function () {
     chrome.storage.sync.get('color',  function(val){
         window.color = val['color'];
         $('body').css('background-color', window.color);
-        runColorizer();
         window.setInterval(function() {
             window.color = getRandomColor();
             $('body').css('background-color', window.color );
