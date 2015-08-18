@@ -33,6 +33,7 @@ var tab = {
         $('body').css('background-color', window.color);
         window.setInterval(function() {
             window.color = getRandomColor();
+            chrome.storage.sync.set({'color': window.color});
             $('body').css('background-color', window.color );
         }, 60000); // change color every minute
     });
@@ -173,10 +174,7 @@ function setLinks() {
 
 
 function getRandomColor() {
-    // returns a random color
-    var result = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-    chrome.storage.sync.set({'color': result});
-    return result;
+    return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
 };
 
 
