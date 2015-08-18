@@ -20,7 +20,7 @@
     "web_accessible_resources": [
         "css/styles.css",
         "js/query-1.9.0.min.js",
-        "js/tab_script.js",
+        "js/script.js",
         "images/edit_icon.png",
         "images/brush_icon.png",
         "images/delete_icon.png",
