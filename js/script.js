@@ -214,29 +214,6 @@ function getRandomColor() {
 };
 
 
-function changeBackground() {
-    // animate background color
-    window.color = getRandomColor();
-    $('body').css('background-color', window.color );
-    return true
-};
-
-
-function runColorizer() {
-    // Initialize background color changing process
-    window.intervalId = window.setInterval(changeBackground, 60000); // change color every minute
-    return true;
-};
-
-
-function stopColorizer() {
-    // Stops the background color changing process
-    clearInterval(window.intervalId);
-    chrome.storage.sync.set({'color': window.color});
-    return true;
-};
-
-
 function isValidURL(url){
     // generic url validator based on regex
     return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
