@@ -5,7 +5,7 @@
  * Written in april 2013 | Updated 2015
  */
 
-$(function () {
+var init = function () {
     window.linkWidth = 100; // pixels
     window.linkHeight = 100; // pixels
     window.linkNum = 100; // number of links
@@ -83,7 +83,8 @@ $(function () {
             window.editMode = false;
         }
     });
-});
+};
+
 
 
 function getOptimalLinkParameters() {
@@ -172,3 +173,6 @@ function isValidURL(url){
     // generic url validator based on regex
     return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
 };
+
+
+document.addEventListener("DOMContentLoaded", init);
