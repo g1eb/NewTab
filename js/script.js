@@ -43,10 +43,10 @@ var tab = {
     var rowHeight = 100;
     var colWidth = 100;
     var prev = {r: 100, c: 100};
-    while ( rowHeight <= 500 ) {
-      var r = window.innerWidth / Math.ceil(window.innerWidth / colWidth);
-      var c = window.innerHeight / Math.ceil(window.innerHeight / rowHeight);
-      if ( (r/c - 1) < 0.2 && !(prev.r === r && prev.c === c) ) tab.arr.push({r:r,c:c});
+    var r, c;
+    while ( rowHeight <= 1500 ) {
+      r = c = window.innerWidth / Math.ceil(window.innerWidth / colWidth);
+      if ( !(prev.r === r && prev.c === c) ) tab.arr.push({r:r,c:c});
       rowHeight = colWidth = rowHeight + 1;
       prev = {r: r, c: c};
     }
@@ -59,13 +59,6 @@ var tab = {
         tab.colWidth = tab.arr[i].c;
         i++;
         if ( i === tab.arr.length ) i--;
-        console.log(i, tab.rowHeight, tab.colWidth);
-        //tab.rowHeight = tab.rowWidth = Math.sqrt(window.innerWidth * window.innerHeight / (tab.rowHeight * tab.colWidth));
-        //tab.rowHeight += 25;
-        //tab.colWidth += 25;
-        //tab.rowHeight = Math.floor(window.innerHeight / Math.ceil(window.innerHeight / tab.rowHeight));
-        //tab.rowHeight = tab.colWidth = Math.floor(window.innerWidth / Math.ceil(window.innerWidth / tab.colWidth));
-        console.log('plus: ' + tab.rowHeight, tab.colWidth);
         tab.setLinks();
       }, 10);
     }).bind('mouseup mouseleave', function() {
@@ -79,13 +72,6 @@ var tab = {
         tab.colWidth = tab.arr[i].c;
         i--;
         if ( i < 0 ) i = 0;
-        console.log(i, tab.rowHeight, tab.colWidth);
-        //tab.rowHeight = tab.rowWidth = Math.sqrt(window.innerWidth * window.innerHeight / ((tab.rowHeight-50) * (tab.colWidth-50)));
-        //tab.rowHeight -= 25;
-        //tab.colWidth -= 25;
-        //tab.rowHeight = Math.floor(window.innerHeight / Math.floor(window.innerHeight / tab.rowHeight));
-        //tab.rowHeight = tab.colWidth = Math.floor(window.innerWidth / Math.floor(window.innerWidth / tab.colWidth));
-        console.log('minus: ' + tab.rowHeight, tab.colWidth);
         tab.setLinks();
       }, 10);
     }).bind('mouseup mouseleave', function() {
