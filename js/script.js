@@ -7,25 +7,16 @@
 
 var tab = {
 
-  // Link dimensions in px
-  linkWidth: 100,
-  linkHeight: 100,
+  // Dimensions in px
+  rowHeight: 150,
+  colWidth: 150,
+  arr: [],
 
   // Edit mode
   editMode: false,
 
   // Initialization function
   init: function () {
-    window.linkWidth = 100; // pixels
-    window.linkHeight = 100; // pixels
-    window.linkNum = 100; // number of links
-    window.editMode = false; // editing mode
-
-    // get saved number of links or use 100 as default
-    chrome.storage.sync.get('linkNum',  function(val){
-        window.linkNum = val['linkNum'] || 100;
-        $('#linkNum').val(window.linkNum);
-    });
 
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
@@ -47,6 +38,58 @@ var tab = {
     // set click listener for the edit button
     $('#edit').click(function() {
         window.editMode = true;
+    });
+
+    var rowHeight = 100;
+    var colWidth = 100;
+    var prev = {r: 100, c: 100};
+    while ( rowHeight <= 500 ) {
+      var r = window.innerWidth / Math.ceil(window.innerWidth / colWidth);
+      var c = window.innerHeight / Math.ceil(window.innerHeight / rowHeight);
+      if ( (r/c - 1) < 0.2 && !(prev.r === r && prev.c === c) ) tab.arr.push({r:r,c:c});
+      rowHeight = colWidth = rowHeight + 1;
+      prev = {r: r, c: c};
+    }
+
+    var i = 0;
+    var timeoutPlus = 0;
+    $('#plus').bind('mousedown', function() {
+      timeoutPlus = setInterval(function () {
+        tab.rowHeight = tab.arr[i].r;
+        tab.colWidth = tab.arr[i].c;
+        i++;
+        if ( i === tab.arr.length ) i--;
+        console.log(i, tab.rowHeight, tab.colWidth);
+        //tab.rowHeight = tab.rowWidth = Math.sqrt(window.innerWidth * window.innerHeight / (tab.rowHeight * tab.colWidth));
+        //tab.rowHeight += 25;
+        //tab.colWidth += 25;
+        //tab.rowHeight = Math.floor(window.innerHeight / Math.ceil(window.innerHeight / tab.rowHeight));
+        //tab.rowHeight = tab.colWidth = Math.floor(window.innerWidth / Math.ceil(window.innerWidth / tab.colWidth));
+        console.log('plus: ' + tab.rowHeight, tab.colWidth);
+        tab.setLinks();
+      }, 10);
+    }).bind('mouseup mouseleave', function() {
+      clearTimeout(timeoutPlus);
+    });
+
+    var timeoutMinus = 0;
+    $('#minus').bind('mousedown', function() {
+      timeoutMinus = setInterval(function () {
+        tab.rowHeight = tab.arr[i].r;
+        tab.colWidth = tab.arr[i].c;
+        i--;
+        if ( i < 0 ) i = 0;
+        console.log(i, tab.rowHeight, tab.colWidth);
+        //tab.rowHeight = tab.rowWidth = Math.sqrt(window.innerWidth * window.innerHeight / ((tab.rowHeight-50) * (tab.colWidth-50)));
+        //tab.rowHeight -= 25;
+        //tab.colWidth -= 25;
+        //tab.rowHeight = Math.floor(window.innerHeight / Math.floor(window.innerHeight / tab.rowHeight));
+        //tab.rowHeight = tab.colWidth = Math.floor(window.innerWidth / Math.floor(window.innerWidth / tab.colWidth));
+        console.log('minus: ' + tab.rowHeight, tab.colWidth);
+        tab.setLinks();
+      }, 10);
+    }).bind('mouseup mouseleave', function() {
+      clearTimeout(timeoutMinus);
     });
 
     // set submit listener for the link edit form
@@ -96,29 +139,19 @@ var tab = {
 
 
   /**
-   * Get link dimensions based on screen size
-   */
-  getOptimalLinkParameters: function() {
-    window.linkWidth = window.linkHeight = Math.ceil(Math.sqrt((window.innerWidth * (window.innerHeight - 22)) / window.linkNum));
-
-    while(window.innerWidth % window.linkWidth > 1){
-        window.linkWidth += 1;
-        window.linkHeight += 1;
-    }
-  },
-
-
-  /**
    * Fills up the screen with links
    */
   setLinks: function() {
-    tab.getOptimalLinkParameters();
+    var numRows = Math.floor(window.innerHeight / tab.rowHeight);
+    var numCols = Math.floor(window.innerWidth / tab.colWidth);
+    var numLinks = numRows*numCols;
 
-    for(var counter = 0; counter < window.linkNum; counter++){
+    $('#content').empty();
+    for(var counter = 0; counter < numLinks; counter++){
         var link = window.links[counter] || undefined;
         if(link == undefined){
             window.links[counter] = undefined;
-            $('#content').append('<div id="'+counter+'" class="link" title="Add new link" data-reveal-id="edit_popup"><div class="cover"></div><img src="images/plus_icon.png" alt="add link image" /></div>');
+            $('#content').append('<div id="'+counter+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img src="images/plus_icon.png" alt="add link image" /></div>');
         } else if(link['image'] == undefined){
             var url = 'chrome://favicon/'+link.url;
             var setLink = function(link) {
@@ -136,12 +169,12 @@ var tab = {
         }
     }
 
-    $('.link').css('width', parseInt(window.linkWidth));
-    $('.link').css('height', parseInt(window.linkHeight));
-    $('.link img').css('width', parseInt(window.linkWidth/2));
-    $('.link img').css('height', parseInt(window.linkHeight/2));
-    $('.link img').css('margin-top', parseInt(window.linkHeight/4));
-    $('.link_title').css('margin-top', parseInt(window.linkHeight/2.2));
+    $('.link').css('width', parseInt(tab.colWidth));
+    $('.link').css('height', parseInt(tab.rowHeight));
+    $('.link img').css('width', parseInt(tab.colWidth/2));
+    $('.link img').css('height', parseInt(tab.rowHeight/2));
+    $('.link img').css('margin-top', parseInt(tab.rowHeight/4));
+    $('.link_title').css('margin-top', parseInt(tab.rowHeight/2.2));
 
     $('.link').click(function(){
         var link = window.links[$(this).attr('id')];
