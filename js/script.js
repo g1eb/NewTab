@@ -137,7 +137,7 @@ var tab = {
    * Fills up the screen with links
    */
   setLinks: function() {
-    var numRows = Math.floor(window.innerHeight / tab.rowHeight);
+    var numRows = Math.ceil(window.innerHeight / tab.rowHeight)+1;
     var numCols = Math.floor(window.innerWidth / tab.colWidth);
     var numLinks = numRows*numCols;
 
