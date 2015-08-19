@@ -60,7 +60,7 @@ var tab = {
 
     var i = 0;
     var timeoutPlus = 0;
-    $('#plus').bind('mousedown', function() {
+    $('#btn-plus').bind('mousedown', function() {
       timeoutPlus = setInterval(function () {
         tab.rowHeight = tab.arr[i].r;
         tab.colWidth = tab.arr[i].c;
@@ -74,7 +74,7 @@ var tab = {
     });
 
     var timeoutMinus = 0;
-    $('#minus').bind('mousedown', function() {
+    $('#btn-minus').bind('mousedown', function() {
       timeoutMinus = setInterval(function () {
         tab.rowHeight = tab.arr[i].r;
         tab.colWidth = tab.arr[i].c;
