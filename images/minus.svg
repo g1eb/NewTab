@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title/>
+ <desc/>
+ <defs>
+  <path id="path-1" d="m4.5,11.5l0,-1l13,0l0,1l-13,0zm6.5,10.5c6.075132,0 11,-4.924868 11,-11c0,-6.075132 -4.924868,-11 -11,-11c-6.075132,0 -11,4.924868 -11,11c0,6.075132 4.924868,11 11,11l0,0zm0,-1c5.522848,0 10,-4.477152 10,-10c0,-5.522848 -4.477152,-10 -10,-10c-5.522848,0 -10,4.477152 -10,10c0,5.522848 4.477152,10 10,10l0,0z"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="514" width="514" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="miu" fill-rule="evenodd" fill="none">
+   <g stroke="null" id="circle_minus_plus_outline_stroke">
+    <use stroke="null" x="0" y="0" transform="matrix(23.22727341949939,0,0,23.22727341949939,0.9999999999999999,0.9999999999999999) " id="svg_1" xlink:href="#path-1" fill-rule="evenodd" fill="#ffffff"/>
+    <use stroke="null" x="0" y="0" transform="matrix(23.22727341949939,0,0,23.22727341949939,0.9999999999999999,0.9999999999999999) " id="svg_2" xlink:href="#path-1" fill="#ffffff"/>
+   </g>
+  </g>
+ </g>
+</svg>
