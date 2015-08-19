@@ -18,6 +18,13 @@ var tab = {
   // Initialization function
   init: function () {
 
+    // get previous dimensions setting
+    chrome.storage.sync.get('dimensions',  function(val){
+        if ( !val.dimensions ) return;
+        tab.rowHeight = val.dimensions.rowHeight;
+        tab.colWidth = val.dimensions.colWidth;
+    });
+
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
         window.color = val['color'];
