@@ -67,6 +67,7 @@ var tab = {
         i++;
         if ( i === tab.arr.length ) i--;
         tab.setLinks();
+        chrome.storage.sync.set({'dimensions': {rowHeight: tab.rowHeight, colWidth: tab.colWidth}});
       }, 10);
     }).bind('mouseup mouseleave', function() {
       clearTimeout(timeoutPlus);
@@ -80,6 +81,7 @@ var tab = {
         i--;
         if ( i < 0 ) i = 0;
         tab.setLinks();
+        chrome.storage.sync.set({'dimensions': {rowHeight: tab.rowHeight, colWidth: tab.colWidth}});
       }, 10);
     }).bind('mouseup mouseleave', function() {
       clearTimeout(timeoutMinus);
