@@ -216,50 +216,44 @@ a:visited:hover {
 .menu-wrapper:hover .menu-handle:before {
   -webkit-transform: rotate(-180deg);
   transform: rotate(-180deg);
-  -webkit-transition-duration: 1s; /* Safari */
+  -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
 
+.menu-wrapper:hover .btn-edit,
+.menu-wrapper:hover .btn-minus,
 .menu-wrapper:hover .btn-plus {
-  animation: showBtn-plus 1s ease;
+  animation-name: showBtn;
+  animation-duration: 0.35s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.menu-wrapper:hover .btn-edit {
+  transition-delay: 0s;
+  animation-delay: 0s;
 }
 .menu-wrapper:hover .btn-minus {
-  transition-delay: 0.25s;
-  animation: showBtn-minus 1s ease;
+  transition-delay: 0.2s;
+  animation-delay: 0.2s;
 }
-.menu-wrapper:hover .btn-edit {
-  transition-delay: 0.5s;
-  animation: showBtn-edit 1s ease;
-}
-
-.menu-wrapper:hover .btn-plus:before {
-  opacity: 0.5;
-}
-.menu-wrapper:hover .btn-minus:before {
-  transition-delay: 0.25s;
-  opacity: 0.5;
-}
-.menu-wrapper:hover .btn-edit:before {
-  transition-delay: 0.5s;
-  opacity: 0.5;
+.menu-wrapper:hover .btn-plus {
+  transition-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
-@keyframes showBtn-plus {
-  0% {width: 0px;}
-  100% {width: 75px;}
+@keyframes showBtn {
+  0% {
+    right: -75px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    right: 0px;
+    opacity: 0.5;
+    visibility: visible;
+  }
 }
-@keyframes showBtn-minus {
-  0% {width: 0px;}
-  5% {width: 0px;}
-  100% {width: 75px;}
-}
-@keyframes showBtn-edit {
-  0% {width: 0px;}
-  10% {width: 0px;}
-  100% {width: 75px;}
-}
-
-
 
 .menu-content {
   position: absolute;
@@ -269,79 +263,53 @@ a:visited:hover {
   height: 300px;
   width: 75px;
   display: none;
+  overflow: hidden;
+}
+
+.btn-plus,
+.btn-minus,
+.btn-edit {
+  position: absolute;
+  right: 0px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50px;
+  cursor: pointer;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+  will-change: right, opacity, visibility;
+}
+
+.btn-plus:before,
+.btn-minus:before,
+.btn-edit:before {
+  content: "";
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .btn-plus {
-  position: absolute;
   top: 0px;
-  right: 0px;
-  width: 75px;
-  height: 75px;
-  border-radius: 50px;
-  cursor: pointer;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
 }
-
 .btn-plus:before {
-    content: "";
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0;
-    background: url('/images/plus.svg') 0 0 no-repeat;
-    background-size: 75px 75px;
+  background: url('/images/plus.svg') 0 0 / 75px 75px no-repeat;
 }
 
 .btn-minus {
-  position: absolute;
   top: 100px;
-  right: 0px;
-  width: 75px;
-  height: 75px;
-  border-radius: 50px;
-  cursor: pointer;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
 }
-
 .btn-minus:before {
-    content: "";
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0;
-    background: url('/images/minus.svg') 0 0 no-repeat;
-    background-size: 75px 75px;
+  background: url('/images/minus.svg') 0 0 / 75px 75px no-repeat;
 }
 
 .btn-edit {
-  position: absolute;
   top: 200px;
-  right: 0px;
-  width: 75px;
-  height: 75px;
-  border-radius: 50px;
-  cursor: pointer;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
 }
-
 .btn-edit:before {
-    content: "";
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0;
-    background: url('/images/edit.svg') 0 0 no-repeat;
-    background-size: 75px 75px;
+  background: url('/images/edit.svg') 0 0 / 75px 75px no-repeat;
 }
