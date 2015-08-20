@@ -232,7 +232,6 @@ a:visited:hover {
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
-
 .menu-wrapper:hover .btn-edit {
   transition-delay: 0s;
   animation-delay: 0s;
@@ -249,6 +248,10 @@ a:visited:hover {
 @keyframes showBtn {
   0% {
     right: -75px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  25% {
     opacity: 0;
     visibility: hidden;
   }
@@ -279,8 +282,8 @@ a:visited:hover {
   height: 75px;
   border-radius: 50px;
   cursor: pointer;
+  opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease;
   will-change: right, opacity, visibility;
 }
 
@@ -294,6 +297,13 @@ a:visited:hover {
   top: 0;
   left: 0;
   z-index: -1;
+  opacity: 0.5;
+}
+
+.btn-plus:hover:before,
+.btn-minus:hover:before,
+.btn-edit:hover:before {
+  opacity: 1;
 }
 
 .btn-plus {
