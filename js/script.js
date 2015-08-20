@@ -146,7 +146,7 @@ var tab = {
         var link = window.links[counter] || undefined;
         if(link == undefined){
             window.links[counter] = undefined;
-            $('#content').append('<div id="'+counter+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img src="images/plus_icon.png" alt="add link image" /></div>');
+            $('#content').append('<div id="'+counter+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>');
         } else if(link['image'] == undefined){
             var url = 'chrome://favicon/'+link.url;
             var setLink = function(link) {

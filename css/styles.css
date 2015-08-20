@@ -79,6 +79,10 @@ a:visited:hover {
   display: inline-block;
 }
 
+.link img.filler {
+  opacity: 0.25;
+}
+
 .link_title {
   margin-top: 45%;
   display: inline-block;
