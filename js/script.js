@@ -2,15 +2,13 @@
 /* NewTab++ script
  * Minimalistic gateway to the interwebs.
  *
- * Idea based on LinkTiles project
  * Written in april 2013 | Updated 2015
  */
 
 var tab = {
 
-  // Dimensions in px
-  rowHeight: 150,
-  colWidth: 150,
+  // Dimensions (in px)
+  d: 150,
   arr: [],
 
   // Edit mode
@@ -19,22 +17,24 @@ var tab = {
   // Initialization function
   init: function () {
 
+    // Calculate dimensions
+    tab.calcDimensions();
+
     // get previous dimensions setting
     chrome.storage.sync.get('dimensions',  function(val){
-        if ( !val.dimensions ) return;
-        tab.rowHeight = val.dimensions.rowHeight;
-        tab.colWidth = val.dimensions.colWidth;
+      if ( !val.dimensions ) return;
+      tab.d = val.dimensions;
     });
 
     // get previous background color
     chrome.storage.sync.get('color',  function(val){
-        window.color = val['color'];
-        $('body').css('background-color', window.color);
-        window.setInterval(function() {
-            window.color = tab.getRandomColor();
-            chrome.storage.sync.set({'color': window.color});
-            $('body').css('background-color', window.color );
-        }, 60000); // change color every minute
+      window.color = val['color'];
+      $('body').css('background-color', window.color);
+      window.setInterval(function() {
+        window.color = tab.getRandomColor();
+        chrome.storage.sync.set({'color': window.color});
+        $('body').css('background-color', window.color );
+      }, 60000); // change color every minute
     });
 
     // retrieve links from chrome storage
