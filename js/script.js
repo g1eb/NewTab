@@ -1,3 +1,4 @@
+'use strict';
 /* NewTab++ script
  * Minimalistic gateway to the interwebs.
  *
