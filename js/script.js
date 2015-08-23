@@ -78,6 +78,20 @@ var tab = {
 
   },
 
+
+  /**
+   * Calculate dimensions
+   */
+  calcDimensions: function () {
+    var x, prev;
+    for ( var i = 100; i <= 1500; i++ ) {
+      x = window.innerWidth / Math.ceil(window.innerWidth / i);
+      if ( x !== prev ) tab.arr.push(x);
+      prev = x;
+    }
+  },
+
+
   /**
    * Get preferences
    */
@@ -131,19 +145,6 @@ var tab = {
     $('#btn-edit').unbind('click').bind('click', function() {
         tab.editMode = true;
     });
-  },
-
-
-  /**
-   * Calculate dimensions
-   */
-  calcDimensions: function () {
-    var x, prev;
-    for ( var i = 100; i <= 1500; i++ ) {
-      x = window.innerWidth / Math.ceil(window.innerWidth / i);
-      if ( x !== prev ) tab.arr.push(x);
-      prev = x;
-    }
   },
 
 
