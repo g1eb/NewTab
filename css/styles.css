@@ -82,15 +82,19 @@ a:visited:hover {
 }
 
 .link img {
-  width: 50%;
-  height: 50%;
-  margin-top: 25%;
+  width: 100%;
+  height: 100%;
   display: inline-block;
   position: relative;
   z-index: -1;
 }
 
 .link img.filler {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
   opacity: 0.25;
 }
 
