@@ -74,11 +74,12 @@ a:visited:hover {
 }
 
 .link span {
+  color: #ffffff;
+  text-transform: uppercase;
   display: inline-block;
   position: relative;
   z-index: -1;
   opacity: 0.5;
-  color: #ffffff;
 }
 
 .link img {
