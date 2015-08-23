@@ -50,7 +50,7 @@ var tab = {
       tab.setLinks();
     });
 
-    // set submit listener for the link edit form
+    // Set submit listener for the link edit form
     $('#link_edit_submit').click(function() {
       window.links[$('#link_id').val()] = {
         id: $('#link_id').val(),
@@ -62,7 +62,7 @@ var tab = {
       window.location.reload();
     });
 
-    // set a change event listener on the image file field
+    // Set a change event listener on the image file field
     $('#link_image').change(function(e){
       file = e.target.files[0];
       var reader = new FileReader();
@@ -72,20 +72,20 @@ var tab = {
       reader.readAsDataURL(file);
     });
 
-    // set click listener on the link delete button
+    // Set click listener on the link delete button
     $('#delete_link').click(function() {
       window.links[$('#link_id').val()] = undefined;
       chrome.storage.local.set({'links': window.links},function() {});
       window.location.reload();
     });
 
-    // set click listener on the close button of the edit popup
+    // Set click listener on the close button of the edit popup
     $('#close_link_edit').click(function() {
       $('#link_edit').hide();
       tab.editMode = false;
     });
 
-    // set click listener to close the link edit popup
+    // Set click listener to close the link edit popup
     $(document).keyup(function(e) {
       if(e.keyCode == 27) {
         $('#link_edit').hide();
