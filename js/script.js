@@ -20,13 +20,16 @@ var tab = {
     // Calculate dimensions
     tab.calcDimensions();
 
-    // get previous dimensions setting
+    // Setup click listeners
+    tab.setClickListeners();
+
+    // Get previous dimensions setting
     chrome.storage.sync.get('dimensions',  function(val){
       if ( !val.dimensions ) return;
       tab.d = val.dimensions;
     });
 
-    // get previous background color
+    // Get previous background color
     chrome.storage.sync.get('color',  function(val){
       window.color = val['color'];
       $('body').css('background-color', window.color);
@@ -41,27 +44,6 @@ var tab = {
     chrome.storage.local.get('links', function(val) {
       window.links = val['links'] || [];
       tab.setLinks();
-    });
-
-    $('#btn-plus').bind('click', function() {
-      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
-      if ( i === tab.arr.length-1 ) return;
-      tab.d = tab.arr[i+1];
-      tab.setLinks();
-      chrome.storage.sync.set({'dimensions': tab.d});
-    });
-
-    $('#btn-minus').bind('click', function() {
-      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
-      if ( i === 0 ) return;
-      tab.d = tab.arr[i-1];
-      tab.setLinks();
-      chrome.storage.sync.set({'dimensions': tab.d});
-    });
-
-    // set click listener for the edit button
-    $('#btn-edit').unbind('click').bind('click', function() {
-        tab.editMode = true;
     });
 
     // set submit listener for the link edit form
@@ -107,6 +89,32 @@ var tab = {
       }
     });
 
+  },
+
+  /**
+   * Setup click listeners
+   */
+  setClickListeners: function () {
+    $('#btn-plus').bind('click', function() {
+      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
+      if ( i === tab.arr.length-1 ) return;
+      tab.d = tab.arr[i+1];
+      tab.setLinks();
+      chrome.storage.sync.set({'dimensions': tab.d});
+    });
+
+    $('#btn-minus').bind('click', function() {
+      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
+      if ( i === 0 ) return;
+      tab.d = tab.arr[i-1];
+      tab.setLinks();
+      chrome.storage.sync.set({'dimensions': tab.d});
+    });
+
+    // set click listener for the edit button
+    $('#btn-edit').unbind('click').bind('click', function() {
+        tab.editMode = true;
+    });
   },
 
 
