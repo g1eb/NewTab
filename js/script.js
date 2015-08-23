@@ -50,8 +50,9 @@ var tab = {
         url: $('#link_url').val() || '',
         image: window.imageData
       };
-      chrome.storage.local.set({'links': tab.links},function() {});
-      window.location.reload();
+      chrome.storage.local.set({'links': tab.links}, function() {
+        tab.setLinks();
+      });
     });
 
     // Set a change event listener on the image file field
