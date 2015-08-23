@@ -18,6 +18,10 @@ var tab = {
   // Edit mode
   editMode: false,
 
+  // Background color
+  color: 'rgb(255, 255, 255)',
+  colorInterval: 60000,
+
   // Initialization function
   init: function () {
 
