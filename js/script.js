@@ -158,27 +158,20 @@ var tab = {
     var numCols = Math.floor(window.innerWidth / tab.d);
     var numLinks = numRows*numCols;
 
+    var link, content;
     $('#content').empty();
-    for(var counter = 0; counter < numLinks; counter++){
-      var link = tab.links[counter] || undefined;
-      if(link == undefined){
-        tab.links[counter] = undefined;
-        $('#content').append('<div id="'+counter+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>');
-      } else if(link['image'] == undefined){
-        var url = 'chrome://favicon/'+link.url;
-        var setLink = function(link) {
-          return function(data) {
-            if(data.length == 228){
-              $('#content').append('<div id="'+counter+'" class="link" title="'+link.title+'"><div class="cover"></div><span class="link_title">'+link.title+'</span></div>');
-            }else{
-              $('#content').append('<div id="'+counter+'" class="link" title="'+link.title+'"><div class="cover"></div><img src="chrome://favicon/'+link.url+'" alt="link image" /></div>');
-            }
-          };
-        };
-        $.ajax({url: url, async: false, success: setLink(link)});
+    for ( var i = 0; i < numLinks; i++ ) {
+      link = tab.links[i] || undefined;
+      if ( !link ) {
+        content = '<div id="'+i+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>';
       } else {
-        $('#content').append('<div id="'+counter+'" class="link" title="'+link.title+'"><div class="cover"></div><img src="'+link.image+'" alt="link image" /></div>');
+        if ( link.image ) {
+          content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="'+link.image+'" alt="link image" /></div>';
+        } else {
+          content = '<div id="'+i+'" class="link"><div class="cover"></div><span class="link-letter">'+link.title[0]+'</span></div>';
+        }
       }
+      $('#content').append(content);
     }
 
     $('.link').css('width', parseInt(tab.d));
