@@ -45,13 +45,13 @@ var tab = {
 
     // Set submit listener for the link edit form
     $('#link_edit_submit').click(function() {
-      window.links[$('#link_id').val()] = {
+      tab.links[$('#link_id').val()] = {
         id: $('#link_id').val(),
         title: $('#link_title').val() || "",
         url: $('#link_url').val() || "",
         image: window.imageData
       }
-      chrome.storage.local.set({'links': window.links},function() {});
+      chrome.storage.local.set({'links': tab.links},function() {});
       window.location.reload();
     });
 
@@ -67,8 +67,8 @@ var tab = {
 
     // Set click listener on the link delete button
     $('#delete_link').click(function() {
-      window.links[$('#link_id').val()] = undefined;
-      chrome.storage.local.set({'links': window.links},function() {});
+      tab.links[$('#link_id').val()] = undefined;
+      chrome.storage.local.set({'links': tab.links},function() {});
       window.location.reload();
     });
 
@@ -157,9 +157,9 @@ var tab = {
 
     $('#content').empty();
     for(var counter = 0; counter < numLinks; counter++){
-      var link = window.links[counter] || undefined;
+      var link = tab.links[counter] || undefined;
       if(link == undefined){
-        window.links[counter] = undefined;
+        tab.links[counter] = undefined;
         $('#content').append('<div id="'+counter+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>');
       } else if(link['image'] == undefined){
         var url = 'chrome://favicon/'+link.url;
@@ -186,7 +186,7 @@ var tab = {
     $('.link_title').css('margin-top', parseInt(tab.d/2.2));
 
     $('.link').click(function(){
-      var link = window.links[$(this).attr('id')];
+      var link = tab.links[$(this).attr('id')];
       if(link === undefined){
         // popup menu to select website + logo
         $('#link_edit h1').text("Add a new link");
@@ -204,7 +204,7 @@ var tab = {
           $('#link_title').focus();
         } else {
           // actually redirecting the user to the requested page
-          var url = window.links[$(this).attr('id')].url;
+          var url = tab.links[$(this).attr('id')].url;
           if(!tab.isValidURL(url)){
             url = "http://" + url;
           }
