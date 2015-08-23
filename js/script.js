@@ -32,16 +32,15 @@ var tab = {
     tab.calcDimensions();
 
     // Get prev values
-    tab.getPrevValues();
+    tab.getPrevValues(function () {
+      tab.setLinks();
+    });
 
     // Init background color
     tab.initBackgroundColor();
 
     // Setup click listeners
     tab.setClickListeners();
-
-    // Setup links
-    tab.setLinks();
 
     // Set submit listener for the link edit form
     $('#link_edit_submit').click(function() {
@@ -104,20 +103,24 @@ var tab = {
 
   /**
    * Get preferences
+   * @param cb Callback function
    */
-  getPrevValues: function() {
+  getPrevValues: function(cb) {
 
     // Get previous dimensions setting
     chrome.storage.sync.get('dimensions',  function(val){
       if ( !val.dimensions ) return;
       tab.d = val.dimensions;
-    });
 
-    // Retrieve links from chrome storage
-    chrome.storage.local.get('links', function(val) {
-      window.links = val['links'] || [];
-    });
+      // Retrieve links from chrome storage
+      chrome.storage.local.get('links', function(val) {
+        if ( !val.links ) return;
+        tab.links = val.links;
 
+        // Callback function
+        if ( typeof(cb) === 'function' ) cb();
+      });
+    });
   },
 
   /**
