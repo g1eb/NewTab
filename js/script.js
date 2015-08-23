@@ -60,7 +60,7 @@ var tab = {
     });
 
     // set click listener for the edit button
-    $('#edit').click(function() {
+    $('#btn-edit').unbind('click').bind('click', function() {
         tab.editMode = true;
     });
 
