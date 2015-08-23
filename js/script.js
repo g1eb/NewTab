@@ -157,7 +157,7 @@ var tab = {
     for ( var i = 0; i < numLinks; i++ ) {
       link = tab.links[i] || undefined;
       if ( !link ) {
-        content = '<div id="'+i+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>';
+        content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>';
       } else {
         if ( link.kittens ) {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="http://placekitten.com/'+Math.floor(tab.d)+'" alt="link image" /></div>';
