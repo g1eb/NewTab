@@ -75,19 +75,16 @@ var tab = {
     });
 
     // Set click listener on the close button of the edit popup
-    $('#close_link_edit').click(function() {
-      $('#link_edit').hide();
-      tab.editMode = false;
+    $('#btn-close').click(function() {
+      tab.closeLinkEdit();
     });
 
     // Set click listener to close the link edit popup
     $(document).keyup(function(e) {
       if ( e.keyCode === 27 ) {
-        $('#link_edit').hide();
-        tab.editMode = false;
+        tab.closeLinkEdit();
       }
     });
-
   },
 
 
