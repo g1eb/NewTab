@@ -246,16 +246,16 @@ var tab = {
    * Set background color
    */
   setBackgroundColor: function () {
-    tab.color = tab.getRandomColor();
+    tab.color = tab.generateRandomColor();
     $('body').css('background-color', tab.color);
   },
 
 
   /**
-   * Get a random color
+   * Generate random color
    */
-  getRandomColor: function() {
-    return 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')';
+  generateRandomColor: function() {
+    return 'rgb(' + (Math.floor(Math.random() * 200)+55) + ',' + (Math.floor(Math.random() * 200)+55) + ',' + (Math.floor(Math.random() * 200)+55) + ')';
   },
 
 
