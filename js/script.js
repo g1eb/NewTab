@@ -24,31 +24,14 @@ var tab = {
     // Calculate dimensions
     tab.calcDimensions();
 
+    // Get prev values
+    tab.getPrevValues();
+
     // Setup click listeners
     tab.setClickListeners();
 
-    // Get previous dimensions setting
-    chrome.storage.sync.get('dimensions',  function(val){
-      if ( !val.dimensions ) return;
-      tab.d = val.dimensions;
-    });
-
-    // Get previous background color
-    chrome.storage.sync.get('color',  function(val){
-      window.color = val['color'];
-      $('body').css('background-color', window.color);
-      window.setInterval(function() {
-        window.color = tab.getRandomColor();
-        chrome.storage.sync.set({'color': window.color});
-        $('body').css('background-color', window.color );
-      }, 60000); // change color every minute
-    });
-
-    // retrieve links from chrome storage
-    chrome.storage.local.get('links', function(val) {
-      window.links = val['links'] || [];
-      tab.setLinks();
-    });
+    // Setup links
+    tab.setLinks();
 
     // Set submit listener for the link edit form
     $('#link_edit_submit').click(function() {
@@ -91,6 +74,35 @@ var tab = {
         $('#link_edit').hide();
         tab.editMode = false;
       }
+    });
+
+  },
+
+  /**
+   * Get preferences
+   */
+  getPrevValues: function() {
+
+    // Get previous dimensions setting
+    chrome.storage.sync.get('dimensions',  function(val){
+      if ( !val.dimensions ) return;
+      tab.d = val.dimensions;
+    });
+
+    // Get previous background color
+    chrome.storage.sync.get('color',  function(val){
+      window.color = val['color'];
+      $('body').css('background-color', window.color);
+      window.setInterval(function() {
+        window.color = tab.getRandomColor();
+        chrome.storage.sync.set({'color': window.color});
+        $('body').css('background-color', window.color );
+      }, 60000); // change color every minute
+    });
+
+    // Retrieve links from chrome storage
+    chrome.storage.local.get('links', function(val) {
+      window.links = val['links'] || [];
     });
 
   },
