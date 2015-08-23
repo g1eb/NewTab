@@ -31,6 +31,9 @@ var tab = {
     // Get prev values
     tab.getPrevValues();
 
+    // Init background color
+    tab.initBackgroundColor();
+
     // Setup click listeners
     tab.setClickListeners();
 
@@ -105,17 +108,6 @@ var tab = {
     chrome.storage.sync.get('dimensions',  function(val){
       if ( !val.dimensions ) return;
       tab.d = val.dimensions;
-    });
-
-    // Get previous background color
-    chrome.storage.sync.get('color',  function(val){
-      window.color = val['color'];
-      $('body').css('background-color', window.color);
-      window.setInterval(function() {
-        window.color = tab.getRandomColor();
-        chrome.storage.sync.set({'color': window.color});
-        $('body').css('background-color', window.color );
-      }, 60000); // change color every minute
     });
 
     // Retrieve links from chrome storage
@@ -240,7 +232,27 @@ var tab = {
 
 
   /**
-   * Returns a random color
+   * Init background color
+   */
+  initBackgroundColor: function() {
+    tab.setBackgroundColor();
+    window.setInterval(function() {
+      tab.setBackgroundColor();
+    }, tab.colorInterval);
+  },
+
+
+  /**
+   * Set background color
+   */
+  setBackgroundColor: function () {
+    tab.color = tab.getRandomColor();
+    $('body').css('background-color', tab.color);
+  },
+
+
+  /**
+   * Get a random color
    */
   getRandomColor: function() {
     return 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')';
