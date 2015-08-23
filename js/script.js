@@ -1,5 +1,7 @@
 'use strict';
-/* NewTab++ script
+
+/**
+ * NewTab++ script
  * Minimalistic gateway to the interwebs.
  *
  * Written in april 2013 | Updated 2015
