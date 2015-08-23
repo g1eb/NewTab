@@ -43,7 +43,7 @@ var tab = {
     tab.setClickListeners();
 
     // Set submit listener for the link edit form
-    $('#link-edit-submit').click(function() {
+    $('#link-edit-submit').unbind('click').bind('click', function () {
       var linkId = parseInt($('#link-id').val());
       tab.links[linkId] = {
         id: linkId,
@@ -58,7 +58,7 @@ var tab = {
     });
 
     // Set a change event listener on the image file field
-    $('#link_image').change(function(e){
+    $('#link-image').change(function(e){
       var file = e.target.files[0];
       var reader = new FileReader();
       reader.onload = function (event) {
@@ -68,16 +68,16 @@ var tab = {
     });
 
     // Set click listener on the link delete button
-    $('#delete-link').click(function() {
+    $('#btn-delete').unbind('click').bind('click', function () {
       var linkId = parseInt($('#link-id').val());
       tab.links[linkId] = undefined;
-      chrome.storage.local.set({'links': tab.links}, function() {
+      chrome.storage.local.set({'links': tab.links}, function () {
         tab.setLinks();
       });
     });
 
     // Set click listener on the close button of the edit popup
-    $('#btn-close').click(function() {
+    $('#btn-close').unbind('click').bind('click', function () {
       tab.closeLinkEdit();
     });
 
@@ -194,31 +194,57 @@ var tab = {
    */
   setupLinkClickListeners: function () {
     $('.link').unbind('click').bind('click', function(){
+      if ( tab.editMode ) return;
       var linkId = $(this).attr('id');
-      var link = tab.links[linkId];
-      if ( !link ) {
-        // Popup menu to create a link
-        $('#link_edit h1').text('Add a new link');
-        $('#link_id').val(linkId);
-        $('#link_edit').show();
-        $('#link_title').focus();
-      } else {
-        if ( tab.editMode ) {
-          // Popup menu to edit a link
-          $('#link_edit h1').text(link.title);
-          $('#link_title').val(link.title);
-          $('#link_url').val(link.url);
-          $('#link_id').val(linkId);
-          $('#link_edit').show();
-          $('#link_title').focus();
-        } else {
-          // Redirect the user to the requested page
-          var url = tab.links[linkId].url;
-          if ( !tab.isValidURL(url) ) url = 'http://' + url;
-          window.location = url;
-        }
-      }
+      if ( !tab.links[linkId] ) return tab.openLinkEdit(linkId);
+      var url = tab.links[linkId].url;
+      if ( !tab.isValidURL(url) ) url = 'http://' + url;
+      window.location = url;
     });
+
+    var timeoutId;
+    $('.link').unbind('mousedown').bind('mousedown', function () {
+      var linkId = $(this).attr('id');
+      timeoutId = setTimeout(function () {
+        tab.editMode = true;
+        tab.openLinkEdit(linkId);
+      }, 500);
+    });
+    $('.link').unbind('mouseup mouseleave').bind('mouseup', function () {
+      clearTimeout(timeoutId);
+    });
+  },
+
+
+  /**
+   * Open link edit modal
+   * @param linkId Integer id of the link
+   */
+  openLinkEdit: function (linkId) {
+    var link = tab.links[linkId];
+    if ( link ) {
+      $('#link-edit .header').text(link.title);
+      $('#link-kittens').prop('checked', link.kittens);
+      $('#link-title').val(link.title);
+      $('#link-url').val(link.url);
+      $('#link-id').val(linkId);
+      $('#link-edit').show();
+      $('#link-title').focus();
+    } else {
+      $('#link-edit .header').text('Add a new link');
+      $('#link-id').val(linkId);
+      $('#link-edit').show();
+      $('#link-title').focus();
+    }
+  },
+
+
+  /**
+   * Close link edit modal
+   */
+  closeLinkEdit: function () {
+    $('#link-edit').hide();
+    tab.editMode = false;
   },
 
 

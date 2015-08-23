@@ -1,14 +1,13 @@
 <html>
-<head>
+  <head>
     <title>New Tab</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/icon.png?">
-	  <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
     <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="content"></div>
-
     <div class="menu">
       <div class="menu-wrapper">
         <div class="menu-handle"></div>
@@ -16,21 +15,32 @@
           <div id="btn-plus" class="btn-plus"></div>
           <div id="btn-minus" class="btn-minus"></div>
         </div>
+      </div>
     </div>
-
-    <div id="link_edit">
-        <h1></h1>
-        <label for="link_title">Title</label>
-        <input type="text" id="link_title" name="link_title" /><br />
-        <label for="link_url">Url</label>
-        <input type="text" id="link_url" name="link_url" /><br />
-        <label for="link_image">Image</label>
-        <input type="file" id="link_image" name="link_image" accept="image/*"><br />
-        <input type="hidden" id="link_id" name="link_id" value="" />
-        <input type="submit" id="link_edit_submit" value="Save" />
-        <a id="delete_link"><img src="images/delete_icon.png" alt="delete_link_image"></img></a>
-        <a id="close_link_edit">&#215;</a>
+    <div id="link-edit" class="link-edit">
+      <h1 class="header"></h1>
+      <form class="link-edit-form" action>
+        <input id="link-id" type="hidden" name="link-id" value="" />
+        <div class="form-row">
+          <label for="link-title">Title</label>
+          <input id="link-title" type="text" name="link-title" autocomplete="off" />
+        </div>
+        <div class="form-row">
+          <label for="link-url">Url</label>
+          <input id="link-url" type="text" name="link-url" autocomplete="off" />
+        </div>
+        <div class="form-row">
+          <label for="link-kittens">Kittens</label>
+          <input id="link-kittens" type="checkbox" name="link-kittens" />
+        </div>
+        <div class="form-row">
+          <label for="link-image">Image</label>
+          <input id="link-image" type="file" name="link-image" accept="image/*">
+        </div>
+        <input id="link-edit-submit" class="link-edit-submit" type="submit" value="Save" />
+        <a id="btn-delete" class="delete-link">Delete this item</a>
+      </form>
+      <a id="btn-close" class="close-link-edit">&#215;</a>
     </div>
-
-</body>
+  </body>
 </html>

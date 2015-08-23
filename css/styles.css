@@ -98,91 +98,110 @@ a:visited:hover {
   opacity: 0.25;
 }
 
-.link_title {
-  margin-top: 45%;
-  display: inline-block;
-}
-
-/* Link Edit Popup */
-#link_edit {
-  top: 30%;
-  left: 33%;
-  width: 30%;
-  height: 40%;
-  padding: 15px;
-  position: absolute;
-  z-index:2;
+/* Link Edit Modal */
+.link-edit {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  padding: 20px;
+  z-index: 10;
   display: none;
   background-color: #ffffff;
   opacity: 0.75;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-user-select: none;
 }
 
-#link_edit label {
-  width: 10%;
+.link-edit .header {
+  width: 95%;
   display: inline-block;
-}
-
-#link_edit h1 {
-  width: 85%;
-  text-overflow: ellipsis;
   overflow: hidden;
-  margin-bottom: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 20px;
 }
 
-#link_title {
+.form-row {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.form-row label {
+  display: inline-block;
+  width: 20%;
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #333333;
+}
+
+.form-row input {
+  display: inline-block;
   width: 75%;
-  margin: 0 15px 15px 0;
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #333333;
+  outline: none;
 }
 
-#link_url {
-  width: 75%;
-  margin: 0 15px 15px 0;
+.form-row input[type=text] {
+  border-width: 0 0 1px 0;
+  border-color: #999999;
+  border-style: solid;
 }
 
-#link_image {
-  width: 75%;
-  margin: 0 15px 20px 0;
+.form-row input[type=text]:focus {
+  border-color: #555555;
 }
 
-#link_edit_submit {
-  width: 90%;
-  height: 40%;
-  left: 5%;
+.form-row input[type=file] {
+  font-size: 1.2em;
+}
+
+.link-edit-submit {
   position: relative;
+  width: 100%;
+  height: 100px;
   color: #333333;
   font-size: 2em;
   border: 1px solid #555555;
   background: transparent;
 	transition-duration: 0.5s;
+  margin: 20px 0;
 }
 
-#link_edit_submit:hover {
+.link-edit-submit:hover {
   cursor: pointer;
   color: #000000;
   border: 1px solid #000000;
+	transition-duration: 0.5s;
   background-color: rgba(0, 255, 0, 0.5);
 }
 
-#delete_link {
-  top: 11px;
-  right: 45px;
-  position: absolute;
-  opacity: 0.7;
+.delete-link {
+  cursor: pointer;
+  color: #333333;
+  float: right;
 }
 
-#delete_link:hover {
-  opacity: 1;
+.delete-link:hover {
+  color: #000000;
+  text-decoration: underline;
 }
 
-#close_link_edit {
-  top: 0px;
-  right: 10px;
+.close-link-edit {
+  top: 5px;
+  right: 15px;
   color: #555555;
   font-size: 3em;
   position: absolute;
+	transition-duration: 0.5s;
 }
 
-#close_link_edit:hover {
+.close-link-edit:hover {
   color: #000000;
   text-decoration: none;
 }
