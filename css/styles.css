@@ -81,6 +81,8 @@ a:visited:hover {
   margin-top: 25%;
   user-select: none;
   display: inline-block;
+  position: relative;
+  z-index: -1;
 }
 
 .link img.filler {
