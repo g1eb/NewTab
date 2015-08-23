@@ -18,6 +18,9 @@ var tab = {
   // Edit mode
   editMode: false,
 
+  // Links
+  links: [],
+
   // Background color
   color: 'rgb(255, 255, 255)',
   colorInterval: 60000,
