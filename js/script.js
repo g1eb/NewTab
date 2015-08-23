@@ -177,17 +177,15 @@ var tab = {
     tab.setupLinkClickListeners();
   },
 
+
   /**
    * Update css styles
    */
   updateStyles: function () {
     $('.link').css('width', parseInt(tab.d));
     $('.link').css('height', parseInt(tab.d));
-    $('.link img').css('width', parseInt(tab.d/2));
-    $('.link img').css('height', parseInt(tab.d/2));
-    $('.link img').css('margin-top', parseInt(tab.d/4));
+    $('.link').css('line-height', parseInt(tab.d));
     $('.link span').css('font-size', parseInt(tab.d));
-    $('.link_title').css('margin-top', parseInt(tab.d/2.2));
   },
 
 
