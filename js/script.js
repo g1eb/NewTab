@@ -46,17 +46,17 @@ var tab = {
     $('#link_edit_submit').click(function() {
       tab.links[$('#link_id').val()] = {
         id: $('#link_id').val(),
-        title: $('#link_title').val() || "",
-        url: $('#link_url').val() || "",
+        title: $('#link_title').val() || '',
+        url: $('#link_url').val() || '',
         image: window.imageData
-      }
+      };
       chrome.storage.local.set({'links': tab.links},function() {});
       window.location.reload();
     });
 
     // Set a change event listener on the image file field
     $('#link_image').change(function(e){
-      file = e.target.files[0];
+      var file = e.target.files[0];
       var reader = new FileReader();
       reader.onload = function (event) {
           window.imageData = event.target.result;
@@ -79,7 +79,7 @@ var tab = {
 
     // Set click listener to close the link edit popup
     $(document).keyup(function(e) {
-      if(e.keyCode == 27) {
+      if ( e.keyCode === 27 ) {
         $('#link_edit').hide();
         tab.editMode = false;
       }
@@ -285,4 +285,4 @@ var tab = {
 
 };
 
-document.addEventListener("DOMContentLoaded", tab.init);
+document.addEventListener('DOMContentLoaded', tab.init);
