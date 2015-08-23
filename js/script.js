@@ -7,6 +7,8 @@
  * Written in april 2013 | Updated 2015
  */
 
+/* globals chrome */
+
 var tab = {
 
   // Dimensions (in px)
