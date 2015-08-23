@@ -66,10 +66,12 @@ var tab = {
     });
 
     // Set click listener on the link delete button
-    $('#delete_link').click(function() {
-      tab.links[$('#link_id').val()] = undefined;
-      chrome.storage.local.set({'links': tab.links},function() {});
-      window.location.reload();
+    $('#delete-link').click(function() {
+      var linkId = parseInt($('#link-id').val());
+      tab.links[linkId] = undefined;
+      chrome.storage.local.set({'links': tab.links}, function() {
+        tab.setLinks();
+      });
     });
 
     // Set click listener on the close button of the edit popup
