@@ -43,11 +43,13 @@ var tab = {
     tab.setClickListeners();
 
     // Set submit listener for the link edit form
-    $('#link_edit_submit').click(function() {
-      tab.links[$('#link_id').val()] = {
-        id: $('#link_id').val(),
-        title: $('#link_title').val() || '',
-        url: $('#link_url').val() || '',
+    $('#link-edit-submit').click(function() {
+      var linkId = parseInt($('#link-id').val());
+      tab.links[linkId] = {
+        id: linkId,
+        title: $('#link-title').val() || '',
+        url: $('#link-url').val() || '',
+        kittens: $('#link-kittens').prop('checked') || false,
         image: window.imageData
       };
       chrome.storage.local.set({'links': tab.links}, function() {
@@ -142,11 +144,6 @@ var tab = {
       tab.setLinks();
       chrome.storage.sync.set({'dimensions': tab.d});
     });
-
-    // set click listener for the edit button
-    $('#btn-edit').unbind('click').bind('click', function() {
-        tab.editMode = true;
-    });
   },
 
 
@@ -165,7 +162,9 @@ var tab = {
       if ( !link ) {
         content = '<div id="'+i+'" class="link" data-reveal-id="edit_popup"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>';
       } else {
-        if ( link.image ) {
+        if ( link.kittens ) {
+          content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="http://placekitten.com/'+Math.floor(tab.d)+'" alt="link image" /></div>';
+        } else if ( link.image ) {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="'+link.image+'" alt="link image" /></div>';
         } else {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><span class="link-letter">'+link.title[0]+'</span></div>';

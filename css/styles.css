@@ -235,28 +235,23 @@ a:visited:hover {
 
 .menu-wrapper:hover .menu-handle:before {
   transform: rotate(-180deg);
-  transition-duration: 1s;
+  transition-duration: 0.35s;
 }
 
-.menu-wrapper:hover .btn-edit,
-.menu-wrapper:hover .btn-minus,
-.menu-wrapper:hover .btn-plus {
+.menu-wrapper:hover .btn-plus,
+.menu-wrapper:hover .btn-minus {
   animation-name: showBtn;
   animation-duration: 0.35s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
-.menu-wrapper:hover .btn-edit {
+.menu-wrapper:hover .btn-minus {
   transition-delay: 0s;
   animation-delay: 0s;
 }
-.menu-wrapper:hover .btn-minus {
-  transition-delay: 0.2s;
-  animation-delay: 0.2s;
-}
 .menu-wrapper:hover .btn-plus {
-  transition-delay: 0.4s;
-  animation-delay: 0.4s;
+  transition-delay: 0.15s;
+  animation-delay: 0.15s;
 }
 
 @keyframes showBtn {
@@ -281,15 +276,14 @@ a:visited:hover {
   bottom: 125px;
   right: 50px;
   z-index: 5;
-  height: 300px;
+  height: 200px;
   width: 75px;
   display: none;
   overflow: hidden;
 }
 
 .btn-plus,
-.btn-minus,
-.btn-edit {
+.btn-minus {
   position: absolute;
   right: 0px;
   width: 75px;
@@ -302,8 +296,7 @@ a:visited:hover {
 }
 
 .btn-plus:before,
-.btn-minus:before,
-.btn-edit:before {
+.btn-minus:before {
   content: "";
   position: absolute;
   width: 75px;
@@ -315,8 +308,7 @@ a:visited:hover {
 }
 
 .btn-plus:hover:before,
-.btn-minus:hover:before,
-.btn-edit:hover:before {
+.btn-minus:hover:before {
   opacity: 1;
 }
 
@@ -332,11 +324,4 @@ a:visited:hover {
 }
 .btn-minus:before {
   background: url('/images/minus.svg') 0 0 / 75px 75px no-repeat;
-}
-
-.btn-edit {
-  top: 200px;
-}
-.btn-edit:before {
-  background: url('/images/edit.svg') 0 0 / 75px 75px no-repeat;
 }
