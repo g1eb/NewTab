@@ -28,6 +28,9 @@ var tab = {
   // Initialization function
   init: function () {
 
+    // Init background color
+    tab.initBackgroundColor();
+
     // Calculate dimensions
     tab.calcDimensions();
 
@@ -35,9 +38,6 @@ var tab = {
     tab.getPrevValues(function () {
       tab.setLinks();
     });
-
-    // Init background color
-    tab.initBackgroundColor();
 
     // Setup click listeners
     tab.setClickListeners();
