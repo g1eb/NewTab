@@ -174,36 +174,53 @@ var tab = {
       $('#content').append(content);
     }
 
+    // Adjust styles
+    tab.updateStyles();
+
+    // Setup click listeners for the links
+    tab.setupLinkClickListeners();
+  },
+
+  /**
+   * Update css styles
+   */
+  updateStyles: function () {
     $('.link').css('width', parseInt(tab.d));
     $('.link').css('height', parseInt(tab.d));
     $('.link img').css('width', parseInt(tab.d/2));
     $('.link img').css('height', parseInt(tab.d/2));
     $('.link img').css('margin-top', parseInt(tab.d/4));
+    $('.link span').css('font-size', parseInt(tab.d));
     $('.link_title').css('margin-top', parseInt(tab.d/2.2));
+  },
 
-    $('.link').click(function(){
-      var link = tab.links[$(this).attr('id')];
-      if(link === undefined){
-        // popup menu to select website + logo
-        $('#link_edit h1').text("Add a new link");
-        $('#link_id').val($(this).attr('id'));
+
+  /**
+   * Setup link click listeners
+   */
+  setupLinkClickListeners: function () {
+    $('.link').unbind('click').bind('click', function(){
+      var linkId = $(this).attr('id');
+      var link = tab.links[linkId];
+      if ( !link ) {
+        // Popup menu to create a link
+        $('#link_edit h1').text('Add a new link');
+        $('#link_id').val(linkId);
         $('#link_edit').show();
         $('#link_title').focus();
       } else {
-        if(tab.editMode == true){
-          // popup menu to select a website + logo (website prefilled)
+        if ( tab.editMode ) {
+          // Popup menu to edit a link
           $('#link_edit h1').text(link.title);
           $('#link_title').val(link.title);
           $('#link_url').val(link.url);
-          $('#link_id').val($(this).attr('id'));
+          $('#link_id').val(linkId);
           $('#link_edit').show();
           $('#link_title').focus();
         } else {
-          // actually redirecting the user to the requested page
-          var url = tab.links[$(this).attr('id')].url;
-          if(!tab.isValidURL(url)){
-            url = "http://" + url;
-          }
+          // Redirect the user to the requested page
+          var url = tab.links[linkId].url;
+          if ( !tab.isValidURL(url) ) url = 'http://' + url;
           window.location = url;
         }
       }
