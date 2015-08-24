@@ -255,7 +255,8 @@ a:visited:hover {
 
 .menu-wrapper:hover .menu-handle:before {
   transform: rotate(-180deg);
-  transition-duration: 0.35s;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
 }
 
 .menu-wrapper:hover .btn-plus,
