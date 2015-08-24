@@ -192,7 +192,8 @@ var tab = {
         if ( link.image ) {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="'+link.image+'" alt="link image" /></div>';
         } else {
-          content = '<div id="'+i+'" class="link"><div class="cover"></div><span class="link-letter">'+link.title[0]+'</span></div>';
+          var letter = ( link.title.length > 0 ) ? link.title[0] : '?';
+          content = '<div id="'+i+'" class="link"><div class="cover"></div><span class="link-letter">'+letter+'</span></div>';
         }
       }
       $('#content').append(content);
