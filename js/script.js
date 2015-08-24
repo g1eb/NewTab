@@ -18,6 +18,9 @@ var tab = {
   // Edit mode
   editMode: false,
 
+  // Image data
+  imageData: null,
+
   // Links
   links: [],
 
@@ -103,7 +106,7 @@ var tab = {
         id: linkId,
         title: $('#link-title').val() || '',
         url: $('#link-url').val() || '',
-        image: window.imageData
+        image: tab.imageData
       };
       chrome.storage.local.set({'links': tab.links}, function() {
         tab.setLinks();
@@ -115,7 +118,7 @@ var tab = {
       var file = e.target.files[0];
       var reader = new FileReader();
       reader.onload = function (event) {
-          window.imageData = event.target.result;
+          tab.imageData = event.target.result;
       };
       reader.readAsDataURL(file);
     });
