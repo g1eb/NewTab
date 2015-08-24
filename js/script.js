@@ -186,6 +186,7 @@ var tab = {
     $('.link').css('height', parseInt(tab.d));
     $('.link').css('line-height', parseInt(tab.d));
     $('.link span').css('font-size', parseInt(tab.d));
+    $('.link span').css('line-height', parseInt(tab.d));
   },
 
 
