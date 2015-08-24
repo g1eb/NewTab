@@ -44,6 +44,17 @@ var tab = {
 
     // Setup click listeners
     tab.setClickListeners();
+
+    // Update links on resize event
+    var timeoutId;
+    window.onresize = function () {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(function () {
+        tab.arr = [];
+        tab.calcDimensions();
+        tab.biggerLinks();
+      }, 300);
+    };
   },
 
 
