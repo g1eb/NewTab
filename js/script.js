@@ -41,51 +41,6 @@ var tab = {
 
     // Setup click listeners
     tab.setClickListeners();
-
-    // Set submit listener for the link edit form
-    $('#link-edit-submit').unbind('click').bind('click', function () {
-      var linkId = parseInt($('#link-id').val());
-      tab.links[linkId] = {
-        id: linkId,
-        title: $('#link-title').val() || '',
-        url: $('#link-url').val() || '',
-        image: window.imageData
-      };
-      chrome.storage.local.set({'links': tab.links}, function() {
-        tab.setLinks();
-      });
-    });
-
-    // Set a change event listener on the image file field
-    $('#link-image').change(function(e){
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      reader.onload = function (event) {
-          window.imageData = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // Set click listener on the link delete button
-    $('#btn-delete').unbind('click').bind('click', function () {
-      var linkId = parseInt($('#link-id').val());
-      tab.links[linkId] = undefined;
-      chrome.storage.local.set({'links': tab.links}, function () {
-        tab.setLinks();
-      });
-    });
-
-    // Set click listener on the close button of the edit popup
-    $('#btn-close').unbind('click').bind('click', function () {
-      tab.closeLinkEdit();
-    });
-
-    // Set click listener to close the link edit popup
-    $(document).keyup(function(e) {
-      if ( e.keyCode === 27 ) {
-        tab.closeLinkEdit();
-      }
-    });
   },
 
 
@@ -139,6 +94,51 @@ var tab = {
       tab.d = tab.arr[i-1];
       tab.setLinks();
       chrome.storage.sync.set({'dimensions': tab.d});
+    });
+
+    // Set submit listener for the link edit form
+    $('#link-edit-submit').unbind('click').bind('click', function () {
+      var linkId = parseInt($('#link-id').val());
+      tab.links[linkId] = {
+        id: linkId,
+        title: $('#link-title').val() || '',
+        url: $('#link-url').val() || '',
+        image: window.imageData
+      };
+      chrome.storage.local.set({'links': tab.links}, function() {
+        tab.setLinks();
+      });
+    });
+
+    // Set a change event listener on the image file field
+    $('#link-image').change(function(e){
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function (event) {
+          window.imageData = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Set click listener on the link delete button
+    $('#btn-delete').unbind('click').bind('click', function () {
+      var linkId = parseInt($('#link-id').val());
+      tab.links[linkId] = undefined;
+      chrome.storage.local.set({'links': tab.links}, function () {
+        tab.setLinks();
+      });
+    });
+
+    // Set click listener on the close button of the edit popup
+    $('#btn-close').unbind('click').bind('click', function () {
+      tab.closeLinkEdit();
+    });
+
+    // Set click listener to close the link edit popup
+    $(document).keyup(function(e) {
+      if ( e.keyCode === 27 ) {
+        tab.closeLinkEdit();
+      }
     });
   },
 
