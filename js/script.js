@@ -229,8 +229,10 @@ var tab = {
       $('#link-url').val(link.url);
       $('#link-id').val(linkId);
       $('#link-edit').show();
+      $('#btn-delete').show();
       $('#link-title').focus();
     } else {
+      $('#btn-delete').hide();
       $('#link-edit .header').text('Add a new link');
       $('#link-id').val(linkId);
       $('#link-edit').show();
