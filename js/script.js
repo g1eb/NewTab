@@ -127,6 +127,7 @@ var tab = {
     $('#btn-delete').unbind('click').bind('click', function () {
       var linkId = parseInt($('#link-id').val());
       tab.links[linkId] = undefined;
+      tab.closeLinkEdit();
       chrome.storage.local.set({'links': tab.links}, function () {
         tab.setLinks();
       });
