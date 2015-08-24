@@ -184,9 +184,8 @@ var tab = {
   updateStyles: function () {
     $('.link').css('width', parseInt(tab.d));
     $('.link').css('height', parseInt(tab.d));
-    $('.link').css('line-height', parseInt(tab.d));
-    $('.link span').css('font-size', parseInt(tab.d));
-    $('.link span').css('line-height', parseInt(tab.d));
+    $('.link span').css('font-size', parseInt(tab.d)+'px');
+    $('.link span').css('line-height', parseInt(tab.d)+'px');
   },
 
 
