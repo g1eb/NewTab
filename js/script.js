@@ -84,19 +84,11 @@ var tab = {
    */
   setClickListeners: function () {
     $('#btn-plus').bind('click', function() {
-      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
-      if ( i === tab.arr.length-1 ) return;
-      tab.d = tab.arr[i+1];
-      tab.setLinks();
-      chrome.storage.sync.set({'dimensions': tab.d});
+      tab.biggerLinks();
     });
 
     $('#btn-minus').bind('click', function() {
-      var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
-      if ( i === 0 ) return;
-      tab.d = tab.arr[i-1];
-      tab.setLinks();
-      chrome.storage.sync.set({'dimensions': tab.d});
+      tab.smallerLinks();
     });
 
     // Set submit listener for the link edit form
@@ -144,6 +136,30 @@ var tab = {
         tab.closeLinkEdit();
       }
     });
+  },
+
+
+  /**
+   * Make the links bigger
+   */
+  biggerLinks: function () {
+    var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
+    if ( i === tab.arr.length-1 ) return;
+    tab.d = tab.arr[i+1];
+    tab.setLinks();
+    chrome.storage.sync.set({'dimensions': tab.d});
+  },
+
+
+  /**
+   * Make the links smaller
+   */
+  smallerLinks: function () {
+    var i = ( tab.arr.indexOf(tab.d) > -1 ) ? tab.arr.indexOf(tab.d) : tab.arr.indexOf(tab.closest(tab.d, tab.arr));
+    if ( i === 0 ) return;
+    tab.d = tab.arr[i-1];
+    tab.setLinks();
+    chrome.storage.sync.set({'dimensions': tab.d});
   },
 
 
