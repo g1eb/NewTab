@@ -117,6 +117,7 @@ a:visited:hover {
 
 .link-edit .header {
   width: 95%;
+  color: #333333;
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;

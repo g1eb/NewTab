@@ -260,7 +260,7 @@ var tab = {
       $('#link-title').focus();
     } else {
       $('#btn-delete').hide();
-      $('#link-edit .header').text('Add a new link');
+      $('#link-edit .header').text('Add a new item');
       $('#link-id').val(linkId);
       $('#link-edit').show();
       $('#link-title').focus();
