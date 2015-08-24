@@ -49,7 +49,6 @@ var tab = {
         id: linkId,
         title: $('#link-title').val() || '',
         url: $('#link-url').val() || '',
-        kittens: $('#link-kittens').prop('checked') || false,
         image: window.imageData
       };
       chrome.storage.local.set({'links': tab.links}, function() {
@@ -159,9 +158,7 @@ var tab = {
       if ( !link ) {
         content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="filler" src="images/filler.svg" alt="add link image" /></div>';
       } else {
-        if ( link.kittens ) {
-          content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="http://placekitten.com/'+Math.floor(tab.d)+'" alt="link image" /></div>';
-        } else if ( link.image ) {
+        if ( link.image ) {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><img class="link-image" src="'+link.image+'" alt="link image" /></div>';
         } else {
           content = '<div id="'+i+'" class="link"><div class="cover"></div><span class="link-letter">'+link.title[0]+'</span></div>';
@@ -224,7 +221,6 @@ var tab = {
     var link = tab.links[linkId];
     if ( link ) {
       $('#link-edit .header').text(link.title);
-      $('#link-kittens').prop('checked', link.kittens);
       $('#link-title').val(link.title);
       $('#link-url').val(link.url);
       $('#link-id').val(linkId);
