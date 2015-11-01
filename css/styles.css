@@ -160,6 +160,9 @@ a:visited:hover {
 
 .form-row input[type=file] {
   font-size: 1.2em;
+  float: right;
+  width: 250px;
+  margin: 20px -20px 0 0;
 }
 
 .link-edit-submit {
