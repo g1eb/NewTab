@@ -52,7 +52,7 @@ var tab = {
       timeoutId = setTimeout(function () {
         tab.arr = [];
         tab.calcDimensions();
-        tab.biggerLinks();
+        tab.setLinks();
       }, 300);
     };
   },
