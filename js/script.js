@@ -107,7 +107,14 @@ var tab = {
       var linkId = parseInt($('#link-id').val());
       var linkTitle = $('#link-title').val() || '';
       var linkUrl = $('#link-url').val() || '';
-      tab.addLink(linkId, linkTitle, linkUrl, tab.imageData);
+      var imageUrl = $('#link-image-url').val();
+      if ( !tab.imageData && tab.isValidURL(imageUrl) ) {
+        tab.convertImgToBase64(imageUrl, function(base64Img) {
+          tab.addLink(linkId, linkTitle, linkUrl, base64Img);
+        });
+      } else {
+        tab.addLink(linkId, linkTitle, linkUrl, tab.imageData);
+      }
     });
 
     // Set a change event listener on the image file field
