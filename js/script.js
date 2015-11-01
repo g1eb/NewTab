@@ -175,6 +175,26 @@ var tab = {
 
 
   /**
+   * Add new link
+   * @param  {Number} link id
+   * @param  {String} link title
+   * @param  {String} link url
+   * @param  {String} link image
+   */
+  addLink: function (linkId, linkTitle, linkUrl, linkImage) {
+    tab.links[linkId] = {
+      id: linkId,
+      title: linkTitle,
+      url: linkUrl,
+      image: linkImage
+    };
+    chrome.storage.local.set({'links': tab.links}, function() {
+      tab.setLinks();
+    });
+  },
+
+
+  /**
    * Fills up the screen with links
    */
   setLinks: function() {
