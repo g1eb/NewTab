@@ -347,6 +347,30 @@ var tab = {
    */
   isValidURL: function(url) {
     return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
+  },
+
+
+  /**
+   * convertImgToBase64
+   * @param  {String} url
+   * @param  {Function} callback
+   * @param  {String} [outputFormat='image/png']
+   * @author HaNdTriX
+   */
+  convertImgToBase64: function(url, callback, outputFormat) {
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+      var canvas = document.createElement('CANVAS');
+      var ctx = canvas.getContext('2d');
+      canvas.height = this.height;
+      canvas.width = this.width;
+      ctx.drawImage(this,0,0);
+      var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+      callback(dataURL);
+      canvas = null;
+    };
+    img.src = url;
   }
 
 };
