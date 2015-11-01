@@ -2,7 +2,7 @@
     "name": "NewTab++",
     "short_name": "nt++",
     "description": "Minimalistic gateway to the interwebs.",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "manifest_version": 2,
     "chrome_url_overrides": {
       "newtab": "index.html"
