@@ -262,6 +262,8 @@ var tab = {
     } else {
       $('#btn-delete').hide();
       $('#link-edit .header').text('Add a new item');
+      $('#link-title').val('');
+      $('#link-url').val('');
       $('#link-id').val(linkId);
       $('#link-edit').show();
       $('#link-title').focus();
