@@ -113,7 +113,7 @@ var tab = {
           tab.addLink(linkId, linkTitle, linkUrl, base64Img);
         });
       } else {
-        tab.addLink(linkId, linkTitle, linkUrl, tab.imageData);
+        tab.addLink(linkId, linkTitle, linkUrl, tab.links[linkId].image);
       }
     });
 
