@@ -105,15 +105,9 @@ var tab = {
     // Set submit listener for the link edit form
     $('#link-edit-submit').unbind('click').bind('click', function () {
       var linkId = parseInt($('#link-id').val());
-      tab.links[linkId] = {
-        id: linkId,
-        title: $('#link-title').val() || '',
-        url: $('#link-url').val() || '',
-        image: tab.imageData
-      };
-      chrome.storage.local.set({'links': tab.links}, function() {
-        tab.setLinks();
-      });
+      var linkTitle = $('#link-title').val() || '';
+      var linkUrl = $('#link-url').val() || '';
+      tab.addLink(linkId, linkTitle, linkUrl, tab.imageData);
     });
 
     // Set a change event listener on the image file field
