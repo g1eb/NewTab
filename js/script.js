@@ -105,8 +105,8 @@ var tab = {
     // Set submit listener for the link edit form
     $('#link-edit-submit').unbind('click').bind('click', function () {
       var linkId = parseInt($('#link-id').val());
-      var linkTitle = $('#link-title').val() || '';
-      var linkUrl = $('#link-url').val() || '';
+      var linkTitle = $('#link-title').val();
+      var linkUrl = $('#link-url').val();
       var imageUrl = $('#link-image-url').val();
       if ( !tab.imageData && tab.isValidURL(imageUrl) ) {
         tab.convertImgToBase64(imageUrl, function(base64Img) {
