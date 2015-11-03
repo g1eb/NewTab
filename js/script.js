@@ -108,12 +108,15 @@ var tab = {
       var linkTitle = $('#link-title').val();
       var linkUrl = $('#link-url').val();
       var imageUrl = $('#link-image-url').val();
-      if ( !tab.imageData && tab.isValidURL(imageUrl) ) {
+      if ( tab.imageData ) {
+        tab.addLink(linkId, linkTitle, linkUrl, tab.imageData);
+      } else if ( tab.isValidURL(imageUrl) ) {
         tab.convertImgToBase64(imageUrl, function(base64Img) {
           tab.addLink(linkId, linkTitle, linkUrl, base64Img);
         });
       } else {
-        tab.addLink(linkId, linkTitle, linkUrl, tab.links[linkId].image);
+        var image = tab.links[linkId] ? tab.links[linkId].image : undefined;
+        tab.addLink(linkId, linkTitle, linkUrl, image);
       }
     });
 
