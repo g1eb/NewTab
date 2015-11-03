@@ -8,8 +8,7 @@
       "newtab": "index.html"
     },
     "permissions": ["storage",
-                    "http://*/",
-                    "chrome://favicon/"],
+                    "<all_urls>" ],
     "icons": {
         "256": "images/icon_256.png",
         "128": "images/icon_128.png",
